@@ -1,8 +1,7 @@
 FROM danlynn/ember-cli:4.4.0-node_16.15
-COPY package.json ./
-RUN npm install
+COPY package.json package-lock.json* ./
+RUN npm ci && npm cache clean --force
 COPY . .
-RUN npm install -g firebase-tools
 RUN ember build --prod
 CMD firebase deploy --token ${FIREBASE_TOKEN}
 EXPOSE 4200
