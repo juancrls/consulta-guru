@@ -2,3 +2,5 @@ echo "commands executed on bash command line in docker container will be persist
 npm install
 eixt
 exit
+ember install ember-concurrency
+exit

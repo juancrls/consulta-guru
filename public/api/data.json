@@ -1,0 +1,323 @@
+{
+  "data": [
+    {
+      "legalEntity": {
+        "shareCapital": 200000,
+        "address": {
+          "city": { "name": "São Paulo", "code": "3550308" },
+          "country": "BRA",
+          "postalCode": "01452-922",
+          "number": "2369",
+          "street": "Brigadeiro Faria Lima",
+          "streetSuffix": "Avenida",
+          "district": "Jardim Paulistano",
+          "state": "SP"
+        },
+        "phones": [{ "source": "RFB", "number": "40638091", "ddd": "11" }],
+        "economicActivities": [
+          {
+            "code": "6202300",
+            "description": "Desenvolvimento e licenciamento de programas de computador customizáveis",
+            "isMain": true
+          },
+          { "code": "6201502", "description": "Web design", "isMain": false },
+          {
+            "code": "6203100",
+            "description": "Desenvolvimento e licenciamento de programas de computador nãocustomizáveis",
+            "isMain": false
+          },
+          {
+            "code": "6204000",
+            "description": "Consultoria em tecnologia da informação",
+            "isMain": false
+          },
+          {
+            "code": "6209100",
+            "description": "Suporte técnico, manutenção e outros serviços em tecnologia da informação",
+            "isMain": false
+          },
+          {
+            "code": "6311900",
+            "description": "Tratamento de dados, provedores de serviços de aplicação e serviços de hospedagem na internet",
+            "isMain": false
+          },
+          {
+            "code": "6319400",
+            "description": "Portais, provedores de conteúdo e outros serviços de informação na internet",
+            "isMain": false
+          },
+          {
+            "code": "6399200",
+            "description": "Outras atividades de prestação de serviços de informação não especificadas anteriormente",
+            "isMain": false
+          },
+          {
+            "code": "9511800",
+            "description": "Reparação e manutenção de computadores e de equipamentos periféricos",
+            "isMain": false
+          }
+        ],
+        "legalNature": {
+          "description": "Sociedade Empresária Limitada",
+          "code": "2062"
+        },
+        "partners": [
+          {
+            "qualification": {
+              "description": "Sócio-Administrador",
+              "code": "49"
+            },
+            "name": "GABRIEL ALEJANDRO DA SILVA MARQUEZ"
+          }
+        ],
+        "unit": "Headoffice",
+        "issuedOn": "2022-09-20T15:54:52Z",
+        "statusOn": "2013-09-02T00:00:00Z",
+        "openedOn": "2013-09-02T00:00:00Z",
+        "email": "LEGAL@NFE.IO",
+        "status": "ATIVA",
+        "size": "EPP",
+        "federalTaxNumber": "18.792.479/0001-01",
+        "name": "NFE.IO HUB SERVICOS DE TECNOLOGIA LTDA",
+        "tradeName": "NFE.IO HUB",
+        "blocked": false
+      }
+    },
+    {
+      "legalEntity": {
+        "shareCapital": 90000023475.34,
+        "address": {
+          "city": { "name": "Brasília", "code": "5300108" },
+          "country": "BRA",
+          "postalCode": "70040-912",
+          "number": "SN",
+          "street": "Quadra 5 Lote B Torres I, II e III",
+          "streetSuffix": "Outros",
+          "additionalInformation": "ANDAR 1 A 16 SALA 101 A 1601 ANDAR 1 A 16 SALA 101 A 1601 ANDAR 1 A 16 SALA 101 A 1601",
+          "district": "Asa Norte",
+          "state": "DF"
+        },
+        "phones": [{ "source": "RFB", "number": "34939002", "ddd": "61" }],
+        "economicActivities": [
+          {
+            "code": "6422100",
+            "description": "Bancos múltiplos com carteira comercial",
+            "isMain": true
+          },
+          {
+            "code": "6499999",
+            "description": "Outras atividades de serviços financeiros não especificadas anteriormente",
+            "isMain": false
+          }
+        ],
+        "legalNature": {
+          "description": "Sociedade de Economia Mista",
+          "code": "2038"
+        },
+        "partners": [
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "EDUARDO CESAR PASA"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "MARCO TULIO DE OLIVEIRA MENDONCA"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "LUCINEIA POSSAR"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "JOSE RICARDO FAGONDE FORNI"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "JOSE AVELAR MATIAS LOPES"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "ANA PAULA TEIXEIRA DE SOUSA"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "CAMILO BUZZI"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "CARLOS MOTTA DOS SANTOS"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "ENIO MATHIAS FERREIRA"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "THOMPSON SOARES PEREIRA CESAR"
+          },
+          {
+            "qualification": {
+              "description": "Conselheiro de Administração",
+              "code": "08"
+            },
+            "name": "DEBORA CRISTINA FONSECA"
+          },
+          {
+            "qualification": {
+              "description": "Conselheiro de Administração",
+              "code": "08"
+            },
+            "name": "PAULO ROBERTO EVANGELISTA DE LIMA"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "FELIPE GUIMARAES GEISSLER PRINCE"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "PAULA SAYAO CARVALHO ARAUJO"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "ANTONIO CARLOS WAGNER CHIARELLO"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "FRANCISCO AUGUSTO LASSALVIA"
+          },
+          {
+            "qualification": {
+              "description": "Conselheiro de Administração",
+              "code": "08"
+            },
+            "name": "IEDA APARECIDA DE MOURA CAGNI"
+          },
+          {
+            "qualification": {
+              "description": "Conselheiro de Administração",
+              "code": "08"
+            },
+            "name": "ARAMIS SA DE ANDRADE"
+          },
+          {
+            "qualification": {
+              "description": "Conselheiro de Administração",
+              "code": "08"
+            },
+            "name": "WALTER EUSTAQUIO RIBEIRO"
+          },
+          {
+            "qualification": {
+              "description": "Conselheiro de Administração",
+              "code": "08"
+            },
+            "name": "RACHEL DE OLIVEIRA MAIA"
+          },
+          {
+            "qualification": { "description": "Presidente", "code": "16" },
+            "name": "FAUSTO DE ANDRADE RIBEIRO"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "CARLOS JOSE DA COSTA ANDRE"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "JOAO LEOCIR DAL ROSSO FRESCURA"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "THIAGO AFFONSO BORSARI"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "JOAO VAGNES DE MOURA SILVA"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "ANTONIO JOSE BARRETO DE ARAUJO JUNIOR"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "RENATO LUIZ BELLINETTI NAEGELE"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "ADELAR VALENTIM DIAS"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "PAULO AUGUSTO FERREIRA BOUCAS"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "JOAO CARLOS DE NOBREGA PECEGO"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "MARCELO CAVALCANTE DE OLIVEIRA LIMA"
+          },
+          {
+            "qualification": {
+              "description": "Conselheiro de Administração",
+              "code": "08"
+            },
+            "name": "ARIOSTO ANTUNES CULAU"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "GUILHERME ALEXANDRE ROSSI"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "RODRIGO MULINARI"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "JAYME PINTO JUNIOR"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "PEDRO BRAMONT"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "RODRIGO FELIPPE AFONSO"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "DANIEL ALVES MARIA"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "GUSTAVO GARCIA LELLIS"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "NEUDSON PERES DE FREITAS"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "DANIELA DE AVELAR GONCALVES"
+          },
+          {
+            "qualification": { "description": "Diretor", "code": "10" },
+            "name": "PAULO EDUARDO DA SILVA GUIMARAES"
+          }
+        ],
+        "unit": "Headoffice",
+        "issuedOn": "2022-09-27T12:34:22Z",
+        "statusOn": "2005-11-03T00:00:00Z",
+        "openedOn": "1966-08-01T00:00:00Z",
+        "responsableEntity": "UNIÃO",
+        "email": "SECEX@BB.COM.BR",
+        "status": "ATIVA",
+        "size": "DEMAIS",
+        "federalTaxNumber": "00.000.000/0001-91",
+        "name": "BANCO DO BRASIL SA",
+        "tradeName": "DIRECAO GERAL",
+        "blocked": false
+      }
+    }
+  ]
+}

@@ -1,3 +1,40 @@
-<div class="header" style="width: 400px; height: 400px; border: 5px solid red">
-    Test
+<div class='header'>
+  <Form::Form
+    @test={{'aosdods'}}
+    @noValidate={{null}}
+    @id={{null}}
+    @onSubmit={{null}}
+    @method={{null}}
+    @target={{null}}
+    @action={{null}}
+    @onSubmit={{null}}
+  >
+    <TextArea::TextArea
+      @test={{'teste input'}}
+      @value={{this.cnpjInput}}
+      @onInput={{this.addCnpjInput}}
+      {{!-- @onChange={{null}} --}}
+      {{!-- @className={{null}} --}}
+      {{!-- @type={{null}} --}}
+      {{!-- @ref={{null}} --}}
+      {{!-- @placeholder={{null}} --}}
+      {{!-- @name={{null}} --}}
+      {{!-- @required={{null}} --}}
+      {{!-- @disabled={{null}} --}}
+      {{!-- @id={{null}} --}}
+    />
+  </Form::Form>
+  
+  <button onclick={{(perform this.getData)}} type="button">TESTE</button>
+
+  {{#if this.getData.isRunning}}
+    <div>LOADING...</div>
+  {{else}}
+    <div>
+      <h1>CNPJ DATA:</h1>
+      <p>CNPJ: {{this.queryResult.federalTaxNumber}}</p>
+      <p>{{this.result}}</p>
+      <p>{{this.result}}</p>
+    </div>
+  {{/if}}
 </div>
