@@ -1,12 +1,8 @@
 <form 
-    test={{this.test}}
-    noValidate={{this.noValidate}} 
-    id={{this.id}} 
+    noValidate={{this.args.noValidate}} 
+    id={{this.args.id}} 
     onSubmit={{this.onSubmit}}
-    method={{this.method}}
-    target={{this.target}}
-    action={{this.action}}
-    onSubmit={{this.onSubmit}}
+    target={{this.args.target}}
 >
     {{yield}}
 </form>
