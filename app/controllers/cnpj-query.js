@@ -105,6 +105,11 @@ export default class CnpjQueryController extends Controller {
       let response = yield fetch('/api/data.json');
       let { data } = yield response.json();
 
+      if(!data) {
+        this.hasError = true;
+        return;
+      }
+
       data.map((obj) => {
         if (
           obj.legalEntity.federalTaxNumber.match(/\d/g).join('') ==
@@ -114,8 +119,12 @@ export default class CnpjQueryController extends Controller {
         }
       });
 
+      if(!this.queryResult) {
+        this.hasError = true;
+        return;
+      }
+      
       const processedData = this.queryResult;
-      console.log('resultado qeury', this.queryResult);
       processedData.economicActivities = economicActivitiesParser(
         this.queryResult.economicActivities
       );
