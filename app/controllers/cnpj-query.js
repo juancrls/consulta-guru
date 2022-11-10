@@ -4,55 +4,137 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
 
+const shareCapitalParser = (number) => {
+  let shareCapital = number.toString().split('.');
+
+  let capital = shareCapital[0];
+  let rest = shareCapital[1];
+
+  return (
+    capital
+      .split('')
+      .reverse()
+      .map((n, i) => {
+        if (i == 0) return n;
+        return i % 3 == 0 ? n + '.' : n;
+      })
+      .reverse()
+      .join('') + `,${rest ? rest : "00"}`
+  );
+};
+
+const economicActivitiesParser = (activitiesArr) => {
+  const parsedActivitiesArr = activitiesArr.map((e) => {
+    e.code = e.code.replace(/\D+/g, '').match(/(\d{0,4})(\d{0,1})(\d{0,2})/);
+
+    e.code =
+      `${e.code[1]}` +
+      (e.code[2] ? `-${e.code[2]}` : ``) +
+      (e.code[3] ? `/${e.code[3]}` : ``);
+
+    return e;
+  });
+
+  const activitiesObj = {
+    main: parsedActivitiesArr.filter((e) => e.isMain),
+    secondary: parsedActivitiesArr.filter((e) => !e.isMain),
+  };
+  return activitiesObj;
+};
+
+const adressParser = (address) => {
+  const addressObj = {
+    address_p1: `${address.streetSuffix ? address.streetSuffix + ' ' : ''}${
+      address.street
+    }, ${address.number}`,
+    address_p2: `${address.district}, ${address.city.name} - ${address.state}`,
+    address_p3: `CEP: ${address.postalCode}`,
+  };
+
+  return addressObj;
+};
+
+const legalNatureParser = (obj) => {
+  obj.code = obj.code.replace(/\D+/g, '').match(/(\d{0,3})(\d{0,1})/);
+  obj.code = `${obj.code[1]}` + (obj.code[2] ? `-${obj.code[2]}` : ``);
+  return `${obj.code} - ${obj.description}`;
+};
+
+const dateParser = (date) => {
+  return date.toISOString().substring(0, 10).split('-').reverse().join('/');
+};
+
 export default class CnpjQueryController extends Controller {
-  @tracked cnpjInput = '';
+  
+  queryParams = ['cnpj'];
+  @tracked hasError = false;
+  @tracked cnpj = ''; // query cnpj
+  @tracked cnpjInput = ''; // input cnpj
   @tracked queryResult;
   @service store;
 
   // User input
   @action
-  addCnpjInput(e) {
-    const num = e.target.value
+  addCnpjInput(e, urlInput = null) {
+    let num = "";
+    if(!e) {
+      num = urlInput
+    } else {
+      num = e.target.value
+    }
+    
+    num = num
       .replace(/\D+/g, '')
       .match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/);
-
-    e.target.value =
+      
+    this.cnpjInput =
       `${num[1]}` +
       (num[2] ? `.${num[2]}` : ``) +
       (num[3] ? `.${num[3]}` : ``) +
       (num[4] ? `/${num[4]}` : ``) +
       (num[5] ? `-${num[5]}` : ``);
+
+    this.cnpj = this.cnpjInput.match(/\d/g).join('');
   }
   // Data
   @task
   *getData() {
     // fake API
-    this.queryResult = '';
-
-    let response = yield fetch('/api/data.json');
-    let { data } = yield response.json();
-
-    data.map((obj) => {
-      if (
-        obj.legalEntity.federalTaxNumber.match(/\d/g).join('') ==
-        this.cnpjInput.match(/\d/g).join('')
-      ) {
-        // remover tratamento com match (usar mask)
-        this.queryResult = obj.legalEntity;
-      }
-      // console.log(Object.keys(obj.legalEntity))
-    });
-
-    console.log('data received: ', data);
-    console.log('actual input: ', this.cnpjInput);
-    console.log('data: ', this.queryResult);
-
-    // return parsed;
+    if(this.cnpjInput.length == 18) {
+      this.queryResult = '';
+  
+      let response = yield fetch('/api/data.json');
+      let { data } = yield response.json();
+  
+      data.map((obj) => {
+        if (
+          obj.legalEntity.federalTaxNumber.match(/\d/g).join('') ==
+          this.cnpjInput.match(/\d/g).join('')
+        ) {
+          this.queryResult = obj.legalEntity;
+        }
+      });
+  
+      const processedData = this.queryResult;
+      console.log("resultado qeury", this.queryResult);
+      processedData.economicActivities = economicActivitiesParser(this.queryResult.economicActivities);
+      processedData.shareCapital = shareCapitalParser(this.queryResult.shareCapital);
+      processedData.address = adressParser(this.queryResult.address);
+      processedData.legalNature = legalNatureParser(this.queryResult.legalNature);
+      processedData.openedOn = dateParser(new Date(this.queryResult.openedOn));
+      processedData.email = this.queryResult.email.toLowerCase();
+  
+      this.queryResult = processedData;
+      this.hasError = false;
+    } else {
+      this.hasError = true;
+      return;
+    }
   }
 
   // @task
   // *getData() { // for API requests
-  //     this.data = yield this.store.findRecord('cnpjQuery', "60.746.948/0001-12").then(res => {
+  //     this.data = yield this.store.findRecord('cnpjQuery', {params: {cnpj: this.cnpjInput}}).then(res => {
   //         console.log("data", res)
   //     })
   // }
