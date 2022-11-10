@@ -4,3 +4,6 @@ eixt
 exit
 ember install ember-concurrency
 exit
+npm install
+./serve
+exit

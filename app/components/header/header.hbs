@@ -1,4 +1,4 @@
-<div class='header'>
+<div class='header {{if this.headerIsFixed "fixed" null}}'>
   <div class="header-content">
     <div class="header-section">
       <div class="hamburger-menu">
@@ -54,7 +54,6 @@
         @onInput={{@addCnpjInput}}
         @onSubmit={{this.args.getData}}
         {{!-- @className={{null}} --}}
-        @type={{"number"}}
         {{!-- @ref={{null}} --}}
         @placeholder={{"Digite o número do CNPJ"}}
         @name={{"cnpj-input"}}
