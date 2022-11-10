@@ -8,6 +8,7 @@
     @addCnpjInput={{this.addCnpjInput}}
     @getData={{this.getData}}
     @queryResult={{this.queryResult}}
+    @isLoading={{this.args.getData.isRunning}}
   />
 
   <div class='page-content-container {{if this.queryResult "justify-start"}}'>
@@ -257,17 +258,6 @@
       </div>
     {{/if}}
   </div>
-
-  {{!-- {{#if this.args.getData.isRunning}}
-    <div>LOADING...</div>
-  {{else}}
-    <div>
-      <h1>CNPJ DATA:</h1>
-      <p>CNPJ: {{this.args.queryResult.federalTaxNumber}}</p>
-      <p>{{this.args.result}}</p>
-      <p>{{this.args.result}}</p>
-    </div>
-  {{/if}} --}}
+  <Footer::Footer />
 </div>
-
 {{outlet}}

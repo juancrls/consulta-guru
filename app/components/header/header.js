@@ -12,8 +12,8 @@ export default class HeaderHeaderComponent extends Component {
 
     window.onscroll = () => {
       this.headerIsFixed = window.scrollY >= 95 ? true : false;
-    }
-    
+    };
+
     // window.onscroll = () => {
     //   if (this.scrolling === false) {
     //     this.scrolling = true;
@@ -28,5 +28,4 @@ export default class HeaderHeaderComponent extends Component {
     //   }
     // };
   }
-
 }

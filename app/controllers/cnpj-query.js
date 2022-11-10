@@ -19,7 +19,7 @@ const shareCapitalParser = (number) => {
         return i % 3 == 0 ? n + '.' : n;
       })
       .reverse()
-      .join('') + `,${rest ? rest : "00"}`
+      .join('') + `,${rest ? rest : '00'}`
   );
 };
 
@@ -65,7 +65,6 @@ const dateParser = (date) => {
 };
 
 export default class CnpjQueryController extends Controller {
-  
   queryParams = ['cnpj'];
   @tracked hasError = false;
   @tracked cnpj = ''; // query cnpj
@@ -76,17 +75,17 @@ export default class CnpjQueryController extends Controller {
   // User input
   @action
   addCnpjInput(e, urlInput = null) {
-    let num = "";
-    if(!e) {
-      num = urlInput
+    let num = '';
+    if (!e) {
+      num = urlInput;
     } else {
-      num = e.target.value
+      num = e.target.value;
     }
-    
+
     num = num
       .replace(/\D+/g, '')
       .match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/);
-      
+
     this.cnpjInput =
       `${num[1]}` +
       (num[2] ? `.${num[2]}` : ``) +
@@ -100,12 +99,12 @@ export default class CnpjQueryController extends Controller {
   @task
   *getData() {
     // fake API
-    if(this.cnpjInput.length == 18) {
+    if (this.cnpjInput.length == 18) {
       this.queryResult = '';
-  
+
       let response = yield fetch('/api/data.json');
       let { data } = yield response.json();
-  
+
       data.map((obj) => {
         if (
           obj.legalEntity.federalTaxNumber.match(/\d/g).join('') ==
@@ -114,16 +113,22 @@ export default class CnpjQueryController extends Controller {
           this.queryResult = obj.legalEntity;
         }
       });
-  
+
       const processedData = this.queryResult;
-      console.log("resultado qeury", this.queryResult);
-      processedData.economicActivities = economicActivitiesParser(this.queryResult.economicActivities);
-      processedData.shareCapital = shareCapitalParser(this.queryResult.shareCapital);
+      console.log('resultado qeury', this.queryResult);
+      processedData.economicActivities = economicActivitiesParser(
+        this.queryResult.economicActivities
+      );
+      processedData.shareCapital = shareCapitalParser(
+        this.queryResult.shareCapital
+      );
       processedData.address = adressParser(this.queryResult.address);
-      processedData.legalNature = legalNatureParser(this.queryResult.legalNature);
+      processedData.legalNature = legalNatureParser(
+        this.queryResult.legalNature
+      );
       processedData.openedOn = dateParser(new Date(this.queryResult.openedOn));
       processedData.email = this.queryResult.email.toLowerCase();
-  
+
       this.queryResult = processedData;
       this.hasError = false;
     } else {
