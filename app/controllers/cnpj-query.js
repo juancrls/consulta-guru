@@ -65,9 +65,7 @@ const dateParser = (date) => {
 };
 
 export default class CnpjQueryController extends Controller {
-  queryParams = ['cnpj'];
   @tracked hasError = false;
-  @tracked cnpj = ''; // query cnpj
   @tracked cnpjInput = ''; // input cnpj
   @tracked queryResult;
   @service store;
@@ -93,16 +91,21 @@ export default class CnpjQueryController extends Controller {
       (num[4] ? `/${num[4]}` : ``) +
       (num[5] ? `-${num[5]}` : ``);
 
-    this.cnpj = this.cnpjInput.match(/\d/g).join('');
+    // this.cnpj = this.cnpjInput.match(/\d/g).join(''); // for query param
   }
   // Data
   @task
   *getData() {
     // fake API
-    if (this.cnpjInput.length == 18) {
+    // if (this.cnpjInput.length == 18) {
+    if (this.cnpjInput.length == 0) {
       this.queryResult = '';
 
-      let response = yield fetch('/api/data.json');
+      console.log("passou 1 ")
+      let response =  yield this.store.findRecord('cnpjQuery', "00000000000191" )
+      console.log("passou 2 ", response)
+
+      // let response = yield fetch('/api/data.json');
       let { data } = yield response.json();
 
       if(!data) {
@@ -119,7 +122,7 @@ export default class CnpjQueryController extends Controller {
         }
       });
 
-      if(!this.queryResult) {
+      if(!this.queryResult) { 
         this.hasError = true;
         return;
       }
@@ -145,11 +148,4 @@ export default class CnpjQueryController extends Controller {
       return;
     }
   }
-
-  // @task
-  // *getData() { // for API requests
-  //     this.data = yield this.store.findRecord('cnpjQuery', {params: {cnpj: this.cnpjInput}}).then(res => {
-  //         console.log("data", res)
-  //     })
-  // }
 }
