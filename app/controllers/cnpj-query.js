@@ -101,14 +101,14 @@ export default class CnpjQueryController extends Controller {
     if (this.cnpjInput.length == 0) {
       this.queryResult = '';
 
-      console.log("passou 1 ")
-      let response =  yield this.store.findRecord('cnpjQuery', "00000000000191" )
-      console.log("passou 2 ", response)
+      console.log('passou 1 ');
+      let response = yield this.store.findRecord('cnpjQuery', '00000000000191');
+      console.log('passou 2 ', response);
 
       // let response = yield fetch('/api/data.json');
       let { data } = yield response.json();
 
-      if(!data) {
+      if (!data) {
         this.hasError = true;
         return;
       }
@@ -122,11 +122,11 @@ export default class CnpjQueryController extends Controller {
         }
       });
 
-      if(!this.queryResult) { 
+      if (!this.queryResult) {
         this.hasError = true;
         return;
       }
-      
+
       const processedData = this.queryResult;
       processedData.economicActivities = economicActivitiesParser(
         this.queryResult.economicActivities
