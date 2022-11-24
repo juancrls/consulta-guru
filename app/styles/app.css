@@ -287,7 +287,7 @@ input::-webkit-inner-spin-button {
 
 /* Data */
 .error {
-  color: red;
+  color: red !important;
   border: 2px solid red;
 }
 
