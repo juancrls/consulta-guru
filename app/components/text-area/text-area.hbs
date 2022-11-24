@@ -7,7 +7,7 @@
     </svg>
   </div>
   <input
-    value={{this.args.value}}
+    value={{if this.args.value this.args.value ""}}
     oninput={{this.args.onInput}}
     class={{if this.args.hasError "error" null}}
     placeholder={{this.args.placeholder}}
@@ -19,6 +19,9 @@
 
   <div class='input-icon'>
     {{#if this.args.isLoading}}
+      <svg class="loader" viewBox="0 0 24 24">
+		    <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"></path>
+	    </svg>
       {{!-- LOADING... --}}
     {{else}}
       {{!-- <button onclick={{(perform this.args.onSubmit)}} type='button'> --}}
@@ -30,8 +33,7 @@
           role='img'
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 19.9 19.7'
-        ><title id='title'>Search Icon</title><desc id='desc'>A magnifying glass
-            icon.</desc><g class='search-path' fill='none' stroke='#848F91'><path
+        ><title id='title'>Search Icon</title><g class='search-path' fill='none' stroke='#848F91'><path
               stroke-linecap='square'
               d='M18.5 18.3l-5.4-5.4'
             ></path><circle cx='8' cy='8' r='7'></circle></g></svg>
