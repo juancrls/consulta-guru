@@ -2,13 +2,20 @@
   'Consulte dados de um CNPJ online grátis em poucos segundos! - Consulta.guru'
 }}
 <div class='main-content' id='main-content'>
-  <Loader::Loader 
+  <Loader::Loader
+    @shareCapitalParser ={{this.shareCapitalParser}}
+    @economicActivitiesParser ={{this.economicActivitiesParser}}
+    @adressParser ={{this.adressParser}}
+    @legalNatureParser ={{this.legalNatureParser}}
+    @dateParser ={{this.dateParser}}
+
     @hasError={{this.hasError}}
+    @setErrorStatus={{this.setErrorStatus}}
     @cnpjInput={{this.cnpjInput}}
     @addCnpjInput={{this.addCnpjInput}}
-    @getData={{this.getData}}
+    @getCnpjData={{this.getCnpjData}}
     @queryResult={{this.queryResult}}
-    @isLoading={{this.getData.isRunning}}
+    @isLoading={{this.getCnpjData.isRunning}}
   />
 </div>
 {{outlet}}

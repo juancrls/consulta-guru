@@ -44,7 +44,7 @@
   <Form::Form
     @noValidate={{null}}
     @id={{"cnpj-form"}}
-    @onSubmit={{this.args.getData}}
+    @onSubmit={{this.args.getCnpjData}}
     @target="cnpj-input"
   >
     <div class="cnpj-input-container">
@@ -52,7 +52,7 @@
       <TextArea::TextArea
         @value={{@cnpjInput}}
         @onInput={{@addCnpjInput}}
-        @onSubmit={{this.args.getData}}
+        @onSubmit={{this.args.getCnpjData}}
         @hasError={{@hasError}}
         @isLoading={{this.args.isLoading}}
         @placeholder={{"Digite o número do CNPJ"}}

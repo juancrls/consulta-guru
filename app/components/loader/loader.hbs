@@ -2,72 +2,72 @@
   @hasError={{@hasError}}
   @cnpjInput={{@cnpjInput}}
   @addCnpjInput={{@addCnpjInput}}
-  @getData={{this.load}}
-  @queryResult={{@queryResult}}
+  @getCnpjData={{this.getCnpjData}}
+  @queryResult={{this.queryResult}}
   @isLoading={{this.load.isRunning}}
 />
 
-<div class='page-content-container {{if @queryResult "justify-start"}}'>
-  {{#if @queryResult}}
+<div class='page-content-container {{if this.queryResult "justify-start"}}'>
+  {{#if this.queryResult}}
     <div class='data-container'>
       <section class='content-item'>
-        {{#if @queryResult.name}}
-          <h2>{{@queryResult.name}}</h2>
+        {{#if this.queryResult.name}}
+          <h2>{{this.queryResult.name}}</h2>
           <div class='content-list-container'>
             <ul>
-              {{#if @queryResult.tradeName}}
+              {{#if this.queryResult.tradeName}}
                 <li>
                   <div>
                     <h3>Nome Fantasia</h3>
-                    <p>{{@queryResult.tradeName}}</p>
+                    <p>{{this.queryResult.tradeName}}</p>
                   </div>
                 </li>
               {{/if}}
-              {{#if @queryResult.unit}}
+              {{#if this.queryResult.unit}}
                 <li>
                   <div>
                     <h3>Unidade</h3>
-                    <p>{{@queryResult.unit}}</p>
+                    <p>{{this.queryResult.unit}}</p>
                   </div>
                 </li>
               {{/if}}
-              {{#if @queryResult.federalTaxNumber}}
+              {{#if this.queryResult.federalTaxNumber}}
                 <li>
                   <div>
                     <h3>Número de Inscrição</h3>
-                    <p>{{@queryResult.federalTaxNumber}}</p>
+                    <p>{{this.queryResult.federalTaxNumber}}</p>
                   </div>
                 </li>
               {{/if}}
-              {{#if @queryResult.openedOn}}
+              {{#if this.queryResult.openedOn}}
                 <li>
                   <div>
                     <h3>Data de Abertura</h3>
-                    <p>{{@queryResult.openedOn}}</p>
+                    <p>{{this.queryResult.openedOn}}</p>
                   </div>
                 </li>
               {{/if}}
-              {{#if @queryResult.legalNature}}
+              {{#if this.queryResult.legalNature}}
                 <li>
                   <div>
                     <h3>Natureza Jurídica</h3>
-                    <p>{{@queryResult.legalNature}}</p>
+                    <p>{{this.queryResult.legalNature}}</p>
                   </div>
                 </li>
               {{/if}}
-              {{#if @queryResult.responsableEntity}}
+              {{#if this.queryResult.responsableEntity}}
                 <li>
                   <div>
                     <h3>Ente Federativo Responsável</h3>
-                    <p>{{@queryResult.responsableEntity}}</p>
+                    <p>{{this.queryResult.responsableEntity}}</p>
                   </div>
                 </li>
               {{/if}}
-              {{#if @queryResult.status}}
+              {{#if this.queryResult.status}}
                 <li>
                   <div>
                     <h3>Situação Cadastral</h3>
-                    <p>{{@queryResult.status}}</p>
+                    <p>{{this.queryResult.status}}</p>
                   </div>
                 </li>
               {{/if}}
@@ -75,14 +75,14 @@
           </div>
         {{/if}}
       </section>
-      {{#if @queryResult.address}}
+      {{#if this.queryResult.address}}
         <section class='content-item'>
           <h2>Endereço</h2>
           <div class='container-address'>
             <div>
-              <p>{{@queryResult.address.address_p1}}</p>
-              <p>{{@queryResult.address.address_p2}}</p>
-              <p>{{@queryResult.address.address_p3}}</p>
+              <p>{{this.queryResult.address.address_p1}}</p>
+              <p>{{this.queryResult.address.address_p2}}</p>
+              <p>{{this.queryResult.address.address_p3}}</p>
             </div>
             <div>
               <iframe
@@ -90,14 +90,14 @@
                 loading='lazy'
                 allowfullscreen
                 referrerpolicy='no-referrer-when-downgrade'
-                src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDyToojxnr4s_2RXXRc-20H0zu9Py8u9Ks&q={{@queryResult.address.address_p1}} {{@queryResult.address.address_p2}}'
+                src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDyToojxnr4s_2RXXRc-20H0zu9Py8u9Ks&q={{this.queryResult.address.address_p1}} {{this.queryResult.address.address_p2}}'
               >
               </iframe>
             </div>
           </div>
         </section>
       {{/if}}
-      {{#if @queryResult.email}}
+      {{#if this.queryResult.email}}
         <section class='content-item'>
           <h2>Contato</h2>
           <div class='content-list-container'>
@@ -105,13 +105,13 @@
               <li>
                 <div>
                   <h3>Email</h3>
-                  <p>{{@queryResult.email}}</p>
+                  <p>{{this.queryResult.email}}</p>
                 </div>
               </li>
               <li>
                 <div>
                   <h3>Telefone</h3>
-                  {{#each @queryResult.phones as |phone|}}
+                  {{#each this.queryResult.phones as |phone|}}
                     <p>({{phone.ddd}}) {{phone.number}}</p>
                   {{/each}}
                 </div>
@@ -120,7 +120,7 @@
           </div>
         </section>
       {{/if}}
-      {{#if @queryResult.economicActivities}}
+      {{#if this.queryResult.economicActivities}}
         <section class='content-item'>
           <h2>Atividades Econômicas</h2>
           <div class='content-list-container content-list-container--column'>
@@ -128,10 +128,10 @@
               <li>
                 <div>
                   <h3>Atividade Econômica Primária</h3>
-                  {{#if @queryResult.economicActivities.main}}
+                  {{#if this.queryResult.economicActivities.main}}
 
                     {{#each
-                      @queryResult.economicActivities.main
+                      this.queryResult.economicActivities.main
                       as |activity|
                     }}
                       <p>{{activity.code}} - {{activity.description}}</p>
@@ -147,10 +147,10 @@
               <li>
                 <div>
                   <h3>Atividade Econômica Secundária</h3>
-                  {{#if @queryResult.economicActivities.secondary}}
+                  {{#if this.queryResult.economicActivities.secondary}}
 
                     {{#each
-                      @queryResult.economicActivities.secondary
+                      this.queryResult.economicActivities.secondary
                       as |activity|
                     }}
                       <p>{{activity.code}} - {{activity.description}}</p>
@@ -168,20 +168,20 @@
         </section>
       {{/if}}
 
-      {{#if @queryResult.shareCapital}}
+      {{#if this.queryResult.shareCapital}}
         <section class='content-item'>
           <h2>Capital Social</h2>
-          <p>R$ {{@queryResult.shareCapital}}</p>
+          <p>R$ {{this.queryResult.shareCapital}}</p>
         </section>
       {{/if}}
       <section class='content-item'>
-        {{#if @queryResult.partners}}
+        {{#if this.queryResult.partners}}
           <div class='content-list-container'>
             <ul>
               <li>
                 <div>
                   <h2>Sócios ou Administradores</h2>
-                  {{#each @queryResult.partners as |partner|}}
+                  {{#each this.queryResult.partners as |partner|}}
                     <div class='partners-container'>
                       <h3>Nome - <p>{{partner.name}}</p></h3>
                       <h3>Qualificação -
