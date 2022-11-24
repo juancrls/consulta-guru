@@ -10,8 +10,6 @@ export default class CnpjQueryController extends Controller {
   @tracked cnpjUrlParam = '';
   @service store;
 
-  
-
   @action setUrlParam(param) {
     this.cnpjUrlParam = param;
   }

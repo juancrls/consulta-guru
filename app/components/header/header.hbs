@@ -2,9 +2,9 @@
   <div class="header-content">
     <div class="header-section">
       <div class="hamburger-menu">
-        <div id="a" />
-        <div id="b" />
-        <div id="c" />
+        <div class="line" />
+        <div class="line" />
+        <div class="line" />
       </div>
       <svg class="header-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 395.05 119.83">
 			<defs>
@@ -32,7 +32,7 @@
 					<path class="cls-2-menu" d="M 118.83 119.83 c -16.64 0 -30.33 -9.15 -37.59 -17.72 a 7 7 0 1 1 10.68 -9 c 5 5.89 15 12.77 26.91 12.77 S 140.75 99 145.74 93.06 a 7 7 0 1 1 10.68 9 C 149.16 110.68 135.47 119.83 118.83 119.83 Z"></path>
 				</g>
 			</g>
-		</svg>
+		  </svg>
     </div>
 
     <div class="header-links">
@@ -40,16 +40,16 @@
       <a href="https://nfe.io/consulta-de-dados/">Consultas para sua empresa?</a>
     </div>
   </div>
-
+  
   <Form::Form
     @noValidate={{null}}
     @id={{"cnpj-form"}}
     @onSubmit={{this.args.getCnpjData}}
     @target="cnpj-input"
   >
-    <div class="cnpj-input-container">
+    <div class="cnpj-input-container {{if this.headerIsFixed "cnpj-input-container-fixed" null}}">
       <h1 class="cnpj-input-title">Consultar dados de CNPJ grátis online</h1>
-      {{log "textarea- cnpjinp" @cnpjInput}}
+      {{log "isloading" this.args.isLoading}}
       <TextArea::TextArea
         @value={{@cnpjInput}}
         @onInput={{@addCnpjInput}}
