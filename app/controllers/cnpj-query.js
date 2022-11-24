@@ -7,7 +7,14 @@ import { task, timeout } from 'ember-concurrency';
 export default class CnpjQueryController extends Controller {
   @tracked hasError = false;
   @tracked cnpjInput = ''; // input cnpj
+  @tracked cnpjUrlParam = '';
   @service store;
+
+  
+
+  @action setUrlParam(param) {
+    this.cnpjUrlParam = param;
+  }
 
   @action shareCapitalParser(number) {
     let shareCapital = number.toString().split('.');
@@ -77,7 +84,7 @@ export default class CnpjQueryController extends Controller {
   @action
   addCnpjInput(e, urlInput = null) {
     let num = '';
-    if (!e) {
+    if (!e || urlInput) {
       num = urlInput;
     } else {
       num = e.target.value;

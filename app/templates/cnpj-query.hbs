@@ -3,6 +3,10 @@
 }}
 <div class='main-content' id='main-content'>
   <Loader::Loader
+    @urlCnpj={{@model}}
+    @cnpjInput={{this.cnpjInput}}
+    @addCnpjInput={{this.addCnpjInput}}
+
     @shareCapitalParser ={{this.shareCapitalParser}}
     @economicActivitiesParser ={{this.economicActivitiesParser}}
     @adressParser ={{this.adressParser}}
@@ -11,7 +15,6 @@
 
     @hasError={{this.hasError}}
     @setErrorStatus={{this.setErrorStatus}}
-    @cnpjInput={{this.cnpjInput}}
     @addCnpjInput={{this.addCnpjInput}}
     @getCnpjData={{this.getCnpjData}}
     @queryResult={{this.queryResult}}

@@ -49,6 +49,7 @@
   >
     <div class="cnpj-input-container">
       <h1 class="cnpj-input-title">Consultar dados de CNPJ grátis online</h1>
+      {{log "textarea- cnpjinp" @cnpjInput}}
       <TextArea::TextArea
         @value={{@cnpjInput}}
         @onInput={{@addCnpjInput}}

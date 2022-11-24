@@ -6,7 +6,18 @@ import { action } from '@ember/object';
 import { A } from '@ember/array';
 
 export default class LoaderLoaderComponent extends Component {
+    constructor(...args) {
+        super(...args)
+
+        if(this.args.urlCnpj) {
+            this.args.addCnpjInput(null, this.args.urlCnpj);
+            this.getCnpjData.perform();
+        }
+
+        console.log("DYNAMIC ON LOADER", this.args.urlCnpj)
+    }
     @service store
+    @service router;
     @tracked cnpjData;
     @tracked isLoading = false;
     @tracked queryResult;
@@ -68,10 +79,13 @@ export default class LoaderLoaderComponent extends Component {
         this.queryResult = processedData;
         this.args.setErrorStatus(false);
       } else {
-        console.log("No input inserted!")
+        console.log("No valid input inserted!")
         this.args.setErrorStatus(true);
         return;
       }
+
+      this.router.transitionTo(`/cnpj-query/${this.args.cnpjInput.match(/\d/g).join('')}`)
+      console.log("transition to passou")
     }
 
 
