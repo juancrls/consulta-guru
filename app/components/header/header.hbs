@@ -40,26 +40,4 @@
       <a href="https://nfe.io/consulta-de-dados/">Consultas para sua empresa?</a>
     </div>
   </div>
-  
-  <Form::Form
-    @noValidate={{null}}
-    @id={{"cnpj-form"}}
-    @onSubmit={{this.args.getCnpjData}}
-    @target="cnpj-input"
-  >
-    <div class="cnpj-input-container {{if this.headerIsFixed "cnpj-input-container-fixed" null}}">
-      <h1 class="cnpj-input-title">Consultar dados de CNPJ grátis online</h1>
-      {{log "isloading" this.args.isLoading}}
-      <TextArea::TextArea
-        @value={{@cnpjInput}}
-        @onInput={{@addCnpjInput}}
-        @onSubmit={{this.args.getCnpjData}}
-        @hasError={{@hasError}}
-        @isLoading={{this.args.isLoading}}
-        @placeholder={{"Digite o número do CNPJ"}}
-        @name={{"cnpj-input"}}
-        @id={{"cnpj-input"}}
-      />
-    </div>
-  </Form::Form>
 </div>

@@ -9,20 +9,25 @@ import { later } from '@ember/runloop';
 export default class LoaderLoaderComponent extends Component {
     constructor(...args) {
 			super(...args)
+      console.log("entrou no controller")
 
 			if(this.args.urlCnpj) {
-					this.args.addCnpjInput(null, this.args.urlCnpj);
+					this.addCnpjInput(null, this.args.urlCnpj);
 					this.getCnpjData.perform();
 			}
     }
     @service store
     @service router;
     @tracked isLoading = false;
+
     @tracked queryResult;
+    @tracked error = false;
+
     @tracked dataType = "mock"; // api - mock
     @tracked oldInput;
 
     changeLoadingStatus = () => this.loading = false;
+    
 
     @task
     *getCnpjData() {
@@ -40,7 +45,7 @@ export default class LoaderLoaderComponent extends Component {
     
             if (!data) {
                 console.log("No data found for: ", this.cnpjInput)
-                this.args.setErrorStatus(true);
+                this.error = true;
                 return;
             }
 
@@ -56,34 +61,14 @@ export default class LoaderLoaderComponent extends Component {
         })
   
         if (!this.queryResult) {
-            console.log("No query result!")
-          this.args.setErrorStatus(true);
+          console.log("No query result!")
+          this.error = true;
           return;
         }
   
-        const processedData = this.queryResult;
-
-        processedData.economicActivities = this.args.economicActivitiesParser(
-          this.queryResult.economicActivities
-        );
-
-        processedData.shareCapital = this.args.shareCapitalParser(
-          this.queryResult.shareCapital
-        );
-
-        processedData.address = this.args.adressParser(this.queryResult.address);
-
-        processedData.legalNature = this.args.legalNatureParser(
-          this.queryResult.legalNature
-        );
-        processedData.openedOn = this.args.dateParser(new Date(this.queryResult.openedOn));
-        processedData.email = this.queryResult.email.toLowerCase();
-  
-        this.queryResult = processedData;
-        this.args.setErrorStatus(false);
       } else {
         console.log("No valid input inserted!")
-        this.args.setErrorStatus(true);
+        this.error = true;
         return;
       }
 
