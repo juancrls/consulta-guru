@@ -1,10 +1,7 @@
 {{log "LOADER RODADO" @urlCnpj}}
 <div 
-  {{did-insert (perform this.getCnpjData) @urlCnpj}}
   {{did-update (perform this.getCnpjData) @urlCnpj}}
 >
 </div>
 
-{{yield (hash 
-  isRunning=this.getCnpjData.isRunning
-  data=this.queryResult)}}
+{{yield this.getCnpjData.isRunning this.queryResult this.error}}

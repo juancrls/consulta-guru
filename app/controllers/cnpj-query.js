@@ -9,6 +9,7 @@ export default class CnpjQueryController extends Controller {
   @tracked cnpjInput = ''; // input cnpj
   @tracked cnpjUrlParam = '';
   @service store;
+  @service router;
 
   @action setUrlParam(param) {
     this.cnpjUrlParam = param;
@@ -82,11 +83,14 @@ export default class CnpjQueryController extends Controller {
   @action
   addCnpjInput(e, urlInput = null) {
     let num = '';
-    if (!e || urlInput) {
+    if (!e && urlInput) {
       num = urlInput;
-    } else {
+    } else if(e) {
       num = e.target.value;
+    } else {
+      return;
     }
+    console.log("ADICIONOU INPUT")
     
     num = num
     .replace(/\D+/g, '')
@@ -100,6 +104,10 @@ export default class CnpjQueryController extends Controller {
       (num[5] ? `-${num[5]}` : ``);
 
     // this.cnpj = this.cnpjInput.match(/\d/g).join(''); // for query param
+  }
+
+  @action onSubmit() {
+    this.router.transitionTo(`/cnpj-query/${this.cnpjInput.match(/\d/g).join('')}`)
   }
 }
 

@@ -3,6 +3,6 @@ import { service } from '@ember/service';
 
 export default class CnpjQueryRoute extends Route {
   model(params) {
-      return params.cnpj_id
+    return params.cnpj_id
   }
 }

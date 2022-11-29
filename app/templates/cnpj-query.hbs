@@ -1,8 +1,17 @@
 {{page-title
   'Consulte dados de um CNPJ online grátis em poucos segundos! - Consulta.guru'
 }}
-<div class='main-content' id='main-content'>    
-  <Loader::Loader @hasError={{this.hasError}} @cnpjInput={{this.cnpjInput}} @urlCnpj={{@model}} as |loader|/>
+<div
+  class='main-content'
+  id='main-content'
+  {{did-insert (fn this.addCnpjInput null @model)}}
+>
+  <Loader::Loader
+    @hasError={{this.hasError}}
+    @cnpjInput={{this.cnpjInput}}
+    @urlCnpj={{@model}}
+    as |isRunning data error|
+  >
     <Form::Form
       @noValidate={{null}}
       @id={{'cnpj-form'}}
@@ -18,9 +27,9 @@
         <TextArea::TextArea
           @value={{this.cnpjInput}}
           @onInput={{this.addCnpjInput}}
-          @onSubmit={{(fn this.addCnpjInput null this.cnpjInput)}}
+          @onSubmit={{this.onSubmit}}
           @hasError={{@hasError}}
-          @isLoading={{this.args.isLoading}}
+          @isLoading={{isRunning}}
           @placeholder={{'Digite o número do CNPJ'}}
           @name={{'cnpj-input'}}
           @id={{'cnpj-input'}}
@@ -28,250 +37,254 @@
       </div>
     </Form::Form>
 
-  <div class='page-content-container {{if this.queryResult "justify-start"}}'>
-    {{#if this.queryResult}}
-      <div class='data-container'>
-        <section class='content-item'>
-          {{#if this.queryResult.name}}
-            <h2>{{this.queryResult.name}}</h2>
-            <div class='content-list-container'>
-              <ul>
-                {{#if this.queryResult.tradeName}}
-                  <li>
-                    <div>
-                      <h3>Nome Fantasia</h3>
-                      <p>{{this.queryResult.tradeName}}</p>
-                    </div>
-                  </li>
-                {{/if}}
-                {{#if this.queryResult.unit}}
-                  <li>
-                    <div>
-                      <h3>Unidade</h3>
-                      <p>{{this.queryResult.unit}}</p>
-                    </div>
-                  </li>
-                {{/if}}
-                {{#if this.queryResult.federalTaxNumber}}
-                  <li>
-                    <div>
-                      <h3>Número de Inscrição</h3>
-                      <p>{{this.queryResult.federalTaxNumber}}</p>
-                    </div>
-                  </li>
-                {{/if}}
-                {{#if this.queryResult.openedOn}}
-                  <li>
-                    <div>
-                      <h3>Data de Abertura</h3>
-                      <p>{{this.queryResult.openedOn}}</p>
-                    </div>
-                  </li>
-                {{/if}}
-                {{#if this.queryResult.legalNature}}
-                  <li>
-                    <div>
-                      <h3>Natureza Jurídica</h3>
-                      <p>{{this.queryResult.legalNature}}</p>
-                    </div>
-                  </li>
-                {{/if}}
-                {{#if this.queryResult.responsableEntity}}
-                  <li>
-                    <div>
-                      <h3>Ente Federativo Responsável</h3>
-                      <p>{{this.queryResult.responsableEntity}}</p>
-                    </div>
-                  </li>
-                {{/if}}
-                {{#if this.queryResult.status}}
-                  <li>
-                    <div>
-                      <h3>Situação Cadastral</h3>
-                      <p>{{this.queryResult.status}}</p>
-                    </div>
-                  </li>
-                {{/if}}
-              </ul>
-            </div>
-          {{/if}}
-        </section>
-        {{#if this.queryResult.address}}
+    <div class='page-content-container {{if data "justify-start"}}'>
+      {{#if data}}
+        <div class='data-container'>
           <section class='content-item'>
-            <h2>Endereço</h2>
-            <div class='container-address'>
-              <div>
-                <p>{{this.queryResult.address.address_p1}}</p>
-                <p>{{this.queryResult.address.address_p2}}</p>
-                <p>{{this.queryResult.address.address_p3}}</p>
-              </div>
-              <div>
-                <iframe
-                  title='maps'
-                  loading='lazy'
-                  allowfullscreen
-                  referrerpolicy='no-referrer-when-downgrade'
-                  src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDyToojxnr4s_2RXXRc-20H0zu9Py8u9Ks&q={{this.queryResult.address.address_p1}} {{this.queryResult.address.address_p2}}'
-                >
-                </iframe>
-              </div>
-            </div>
-          </section>
-        {{/if}}
-        {{#if this.queryResult.email}}
-          <section class='content-item'>
-            <h2>Contato</h2>
-            <div class='content-list-container'>
-              <ul>
-                <li>
-                  <div>
-                    <h3>Email</h3>
-                    <p>{{this.queryResult.email}}</p>
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <h3>Telefone</h3>
-                    {{#each this.queryResult.phones as |phone|}}
-                      <p>({{phone.ddd}}) {{phone.number}}</p>
-                    {{/each}}
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </section>
-        {{/if}}
-        {{#if this.queryResult.economicActivities}}
-          <section class='content-item'>
-            <h2>Atividades Econômicas</h2>
-            <div class='content-list-container content-list-container--column'>
-              <ul>
-                <li>
-                  <div>
-                    <h3>Atividade Econômica Primária</h3>
-                    {{#if this.queryResult.economicActivities.main}}
-
-                      {{#each
-                        this.queryResult.economicActivities.main
-                        as |activity|
-                      }}
-                        <p>{{activity.code}} - {{activity.description}}</p>
-                      {{/each}}
-
-                    {{else}}
-
-                      <p>Nenhuma atividade informada</p>
-
-                    {{/if}}
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <h3>Atividade Econômica Secundária</h3>
-                    {{#if this.queryResult.economicActivities.secondary}}
-
-                      {{#each
-                        this.queryResult.economicActivities.secondary
-                        as |activity|
-                      }}
-                        <p>{{activity.code}} - {{activity.description}}</p>
-                      {{/each}}
-
-                    {{else}}
-
-                      <p>Nenhuma atividade informada</p>
-
-                    {{/if}}
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </section>
-        {{/if}}
-
-        {{#if this.queryResult.shareCapital}}
-          <section class='content-item'>
-            <h2>Capital Social</h2>
-            <p>R$ {{this.queryResult.shareCapital}}</p>
-          </section>
-        {{/if}}
-        <section class='content-item'>
-          {{#if this.queryResult.partners}}
-            <div class='content-list-container'>
-              <ul>
-                <li>
-                  <div>
-                    <h2>Sócios ou Administradores</h2>
-                    {{#each this.queryResult.partners as |partner|}}
-                      <div class='partners-container'>
-                        <h3>Nome <p>{{partner.name}}</p></h3>
-                        <h3>Qualificação
-                          <p>{{partner.qualification.description}}</p></h3>
+            {{#if data.name}}
+              <h2>{{data.name}}</h2>
+              <div class='content-list-container'>
+                <ul>
+                  {{#if data.tradeName}}
+                    <li>
+                      <div>
+                        <h3>Nome Fantasia</h3>
+                        <p>{{data.tradeName}}</p>
                       </div>
-                    {{/each}}
-
-                  </div>
-                </li>
-              </ul>
-            </div>
+                    </li>
+                  {{/if}}
+                  {{#if data.unit}}
+                    <li>
+                      <div>
+                        <h3>Unidade</h3>
+                        <p>{{data.unit}}</p>
+                      </div>
+                    </li>
+                  {{/if}}
+                  {{#if data.federalTaxNumber}}
+                    <li>
+                      <div>
+                        <h3>Número de Inscrição</h3>
+                        <p>{{data.federalTaxNumber}}</p>
+                      </div>
+                    </li>
+                  {{/if}}
+                  {{#if data.openedOn}}
+                    <li>
+                      <div>
+                        <h3>Data de Abertura</h3>
+                        <p>{{data.openedOn}}</p>
+                      </div>
+                    </li>
+                  {{/if}}
+                  {{#if data.legalNature}}
+                    <li>
+                      <div>
+                        <h3>Natureza Jurídica</h3>
+                        <p>{{data.legalNature}}</p>
+                      </div>
+                    </li>
+                  {{/if}}
+                  {{#if data.responsableEntity}}
+                    <li>
+                      <div>
+                        <h3>Ente Federativo Responsável</h3>
+                        <p>{{data.responsableEntity}}</p>
+                      </div>
+                    </li>
+                  {{/if}}
+                  {{#if data.status}}
+                    <li>
+                      <div>
+                        <h3>Situação Cadastral</h3>
+                        <p>{{data.status}}</p>
+                      </div>
+                    </li>
+                  {{/if}}
+                </ul>
+              </div>
+            {{/if}}
+          </section>
+          {{#if data.address}}
+            <section class='content-item'>
+              <h2>Endereço</h2>
+              <div class='container-address'>
+                <div>
+                  <p>{{data.address.address_p1}}</p>
+                  <p>{{data.address.address_p2}}</p>
+                  <p>{{data.address.address_p3}}</p>
+                </div>
+                <div>
+                  <iframe
+                    title='maps'
+                    loading='lazy'
+                    allowfullscreen
+                    referrerpolicy='no-referrer-when-downgrade'
+                    src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDyToojxnr4s_2RXXRc-20H0zu9Py8u9Ks&q={{data.address.address_p1}} {{data.address.address_p2}}'
+                  >
+                  </iframe>
+                </div>
+              </div>
+            </section>
           {{/if}}
-        </section>
-      </div>
-    {{else}}
-      <div class='page-content'>
-        <h2>Como funciona a consulta de CNPJ online?</h2>
-        <p>As novas tecnologias só tem ajudado as empresas evoluírem, ainda mais
-          quando falamos em automação de dados. O nosso sistema para consultar
-          CNPJs é grátis e prático, em poucos segundos você recebe as
-          informações completas da Pessoa Jurídica.<br />Usando a nossa
-          ferramenta é possível também consultar a situação cadastral de um CNPJ
-          pelo nome ou pelo próprio número. Todos os dados são buscados
-          diretamente no banco de dados da Receita Federal, fornecendo uma
-          pesquisa completa da sua consulta de CNPJ em poucos segundos.</p>
-      </div>
+          {{#if data.email}}
+            <section class='content-item'>
+              <h2>Contato</h2>
+              <div class='content-list-container'>
+                <ul>
+                  <li>
+                    <div>
+                      <h3>Email</h3>
+                      <p>{{data.email}}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div>
+                      <h3>Telefone</h3>
+                      {{#each data.phones as |phone|}}
+                        <p>({{phone.ddd}}) {{phone.number}}</p>
+                      {{/each}}
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          {{/if}}
+          {{#if data.economicActivities}}
+            <section class='content-item'>
+              <h2>Atividades Econômicas</h2>
+              <div
+                class='content-list-container content-list-container--column'
+              >
+                <ul>
+                  <li>
+                    <div>
+                      <h3>Atividade Econômica Primária</h3>
+                      {{#if data.economicActivities.main}}
 
-      <div class='page-content'>
-        <h2>Consultar endereço por CNPJ</h2>
-        <p>A ferramenta de consultas de CNPJs é ótima aliada para equipes
-          comerciais também. É possível consultar o endereço da empresa pelo
-          CNPJ usando nosso sistema. Use o número ou razão social e encontre as
-          informações de endereço, contato de e-mail e telefone do CNPJ que você
-          busca.</p>
-      </div>
+                        {{#each
+                          data.economicActivities.main
+                          as |activity|
+                        }}
+                          <p>{{activity.code}} - {{activity.description}}</p>
+                        {{/each}}
 
-      <div class='page-content'>
-        <h2>Consultar sócios da empresa por CNPJ</h2>
-        <p>Muitas vezes nos perguntamos como saber o nome dos sócios e se é
-          possível descobrir pelo CNPJ, e a resposta é sim! Usando nossa
-          ferramenta para consultar os sócios de uma empresa pelo CNPJ, além de
-          ter uma resposta direta com nome completo, você ainda encontrará
-          outras informações como endereço, situação cadastral, etc.</p>
-      </div>
+                      {{else}}
 
-      <div class='page-content'>
-        <h2>Pesquisar razão social pelo CNPJ</h2>
-        <p>Toda a informação que temos de uma empresa às vezes é somente sua
-          razão social, não é mesmo? Não se preocupe! Com nossa ferramenta é
-          possível pesquisar dados completos de um CNPJ buscando pela sua razão
-          social.</p>
-      </div>
+                        <p>Nenhuma atividade informada</p>
 
-      <div class='page-content'>
-        <h2>Por que usar a consulta de CNPJ online</h2>
-        <p>O tempo é um ativo muito precioso para algumas empresas e nada melhor
-          do que contar com uma ferramenta capaz de automatizar tarefas
-          repetitivas e que só fazem sua empresa perder tempo. Veja todos os
-          dados retornados ao realizar um consulta de CNPJ: Razão social, Nome
-          Fantasia, Número de inscrição, data de abertura, código e descrição da
-          natureza jurídica, situação cadastral atual, localização, atividades
-          econômicas secundárias, sócios e capital social.<br />O nosso sistema
-          realiza pesquisas por CNPJs (seja de Simples Nacional, MEI, ou outros
-          tipos) de forma rápida e prática, o objetivo é facilitar seu dia dia.
-          Por isso, criamos outras ferramentas que também facilitam a pesquisa
-          por dados na internet: o Gerador de CPF, o Gerador de CNPJ, a Consulta
-          de CPF, o Validador de CPF e o Validador de CNPJ.</p>
-      </div>
-    {{/if}}
-  </div>
+                      {{/if}}
+                    </div>
+                  </li>
+                  <li>
+                    <div>
+                      <h3>Atividade Econômica Secundária</h3>
+                      {{#if data.economicActivities.secondary}}
+
+                        {{#each
+                          data.economicActivities.secondary
+                          as |activity|
+                        }}
+                          <p>{{activity.code}} - {{activity.description}}</p>
+                        {{/each}}
+
+                      {{else}}
+
+                        <p>Nenhuma atividade informada</p>
+
+                      {{/if}}
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          {{/if}}
+
+          {{#if data.shareCapital}}
+            <section class='content-item'>
+              <h2>Capital Social</h2>
+              <p>R$ {{data.shareCapital}}</p>
+            </section>
+          {{/if}}
+          <section class='content-item'>
+            {{#if data.partners}}
+              <div class='content-list-container'>
+                <ul>
+                  <li>
+                    <div>
+                      <h2>Sócios ou Administradores</h2>
+                      {{#each data.partners as |partner|}}
+                        <div class='partners-container'>
+                          <h3>Nome <p>{{partner.name}}</p></h3>
+                          <h3>Qualificação
+                            <p>{{partner.qualification.description}}</p></h3>
+                        </div>
+                      {{/each}}
+
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            {{/if}}
+          </section>
+        </div>
+      {{else}}
+        <div class='page-content'>
+          <h2>Como funciona a consulta de CNPJ online?</h2>
+          <p>As novas tecnologias só tem ajudado as empresas evoluírem, ainda
+            mais quando falamos em automação de dados. O nosso sistema para
+            consultar CNPJs é grátis e prático, em poucos segundos você recebe
+            as informações completas da Pessoa Jurídica.<br />Usando a nossa
+            ferramenta é possível também consultar a situação cadastral de um
+            CNPJ pelo nome ou pelo próprio número. Todos os dados são buscados
+            diretamente no banco de dados da Receita Federal, fornecendo uma
+            pesquisa completa da sua consulta de CNPJ em poucos segundos.</p>
+        </div>
+
+        <div class='page-content'>
+          <h2>Consultar endereço por CNPJ</h2>
+          <p>A ferramenta de consultas de CNPJs é ótima aliada para equipes
+            comerciais também. É possível consultar o endereço da empresa pelo
+            CNPJ usando nosso sistema. Use o número ou razão social e encontre
+            as informações de endereço, contato de e-mail e telefone do CNPJ que
+            você busca.</p>
+        </div>
+
+        <div class='page-content'>
+          <h2>Consultar sócios da empresa por CNPJ</h2>
+          <p>Muitas vezes nos perguntamos como saber o nome dos sócios e se é
+            possível descobrir pelo CNPJ, e a resposta é sim! Usando nossa
+            ferramenta para consultar os sócios de uma empresa pelo CNPJ, além
+            de ter uma resposta direta com nome completo, você ainda encontrará
+            outras informações como endereço, situação cadastral, etc.</p>
+        </div>
+
+        <div class='page-content'>
+          <h2>Pesquisar razão social pelo CNPJ</h2>
+          <p>Toda a informação que temos de uma empresa às vezes é somente sua
+            razão social, não é mesmo? Não se preocupe! Com nossa ferramenta é
+            possível pesquisar dados completos de um CNPJ buscando pela sua
+            razão social.</p>
+        </div>
+
+        <div class='page-content'>
+          <h2>Por que usar a consulta de CNPJ online</h2>
+          <p>O tempo é um ativo muito precioso para algumas empresas e nada
+            melhor do que contar com uma ferramenta capaz de automatizar tarefas
+            repetitivas e que só fazem sua empresa perder tempo. Veja todos os
+            dados retornados ao realizar um consulta de CNPJ: Razão social, Nome
+            Fantasia, Número de inscrição, data de abertura, código e descrição
+            da natureza jurídica, situação cadastral atual, localização,
+            atividades econômicas secundárias, sócios e capital social.<br />O
+            nosso sistema realiza pesquisas por CNPJs (seja de Simples Nacional,
+            MEI, ou outros tipos) de forma rápida e prática, o objetivo é
+            facilitar seu dia dia. Por isso, criamos outras ferramentas que
+            também facilitam a pesquisa por dados na internet: o Gerador de CPF,
+            o Gerador de CNPJ, a Consulta de CPF, o Validador de CPF e o
+            Validador de CNPJ.</p>
+        </div>
+      {{/if}}
+    </div>
+  </Loader::Loader>
 </div>
 {{outlet}}
