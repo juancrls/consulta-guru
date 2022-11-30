@@ -1,6 +1,7 @@
 {{log "LOADER RODADO" @urlCnpj}}
 <div 
   {{did-update (perform this.getCnpjData) @urlCnpj}}
+  {{did-insert (perform this.getCnpjData) @urlCnpj}}
 >
 </div>
 

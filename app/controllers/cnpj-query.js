@@ -8,6 +8,7 @@ export default class CnpjQueryController extends Controller {
   @tracked hasError = false;
   @tracked cnpjInput = ''; // input cnpj
   @tracked cnpjUrlParam = '';
+  @tracked formattedData = null;
   @service store;
   @service router;
 
@@ -108,6 +109,28 @@ export default class CnpjQueryController extends Controller {
 
   @action onSubmit() {
     this.router.transitionTo(`/cnpj-query/${this.cnpjInput.match(/\d/g).join('')}`)
+  }
+
+  @action dataParser(dataObject) {
+    if(!dataObject) return;
+
+    this.formattedData = dataObject;
+    this.formattedData.economicActivities = this.economicActivitiesParser(
+      dataObject.economicActivities
+    );
+
+    this.formattedData.shareCapital = this.shareCapitalParser(
+      dataObject.shareCapital
+    );
+
+    this.formattedData.address = this.adressParser(dataObject.address);
+
+    this.formattedData.legalNature = this.legalNatureParser(
+      dataObject.legalNature
+    );
+    this.formattedData.openedOn = this.dateParser(new Date(dataObject.openedOn));
+    this.formattedData.email = dataObject.email.toLowerCase();
+    return this.formattedData;
   }
 }
 

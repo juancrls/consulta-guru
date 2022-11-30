@@ -1,10 +1,9 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { task } from 'ember-concurrency';
+import { task, timeout } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { A } from '@ember/array';
-import { later } from '@ember/runloop';
 
 export default class LoaderLoaderComponent extends Component {
   @service store;
@@ -16,6 +15,8 @@ export default class LoaderLoaderComponent extends Component {
 
   @task
   *getCnpjData() {
+    if(!this.args.urlCnpj) return;
+    yield timeout(500);
     console.log('RODOU FETCH');
 
     if (this.args.urlCnpj.length == 14) {
@@ -25,14 +26,10 @@ export default class LoaderLoaderComponent extends Component {
           'cnpjQuery',
           this.args.urlCnpj
         );
+        this.error = false;
       } else if (this.dataType == 'mock') {
         let response = yield fetch('/api/data.json');
         let { data } = yield response.json();
-
-        if (!data) {
-          this.error = `No data found for: ${this.cnpjInput}`;
-          return;
-        }
 
         data.map((obj) => {
           if (
@@ -42,6 +39,7 @@ export default class LoaderLoaderComponent extends Component {
             this.queryResult = obj.legalEntity;
           }
         });
+        this.error = false;
       }
 
       if (!this.queryResult) {

@@ -23,12 +23,11 @@
           {{if this.headerIsFixed "cnpj-input-container-fixed" null}}'
       >
         <h1 class='cnpj-input-title'>Consultar dados de CNPJ grátis online</h1>
-        {{!-- {{log 'isloading - header.hbs' this.args.isLoading}} --}}
         <TextArea::TextArea
           @value={{this.cnpjInput}}
           @onInput={{this.addCnpjInput}}
           @onSubmit={{this.onSubmit}}
-          @hasError={{@hasError}}
+          @hasError={{error}}
           @isLoading={{isRunning}}
           @placeholder={{'Digite o número do CNPJ'}}
           @name={{'cnpj-input'}}
@@ -36,68 +35,67 @@
         />
       </div>
     </Form::Form>
-
-    <div class='page-content-container {{if data "justify-start"}}'>
-      {{#if data}}
+    <div class='page-content-container {{if data "justify-start"}}' {{did-update (fn this.dataParser data) data}}>
+      {{#if this.formattedData}}
         <div class='data-container'>
           <section class='content-item'>
-            {{#if data.name}}
-              <h2>{{data.name}}</h2>
+            {{#if this.formattedData.name}}
+              <h2>{{this.formattedData.name}}</h2>
               <div class='content-list-container'>
                 <ul>
-                  {{#if data.tradeName}}
+                  {{#if this.formattedData.tradeName}}
                     <li>
                       <div>
                         <h3>Nome Fantasia</h3>
-                        <p>{{data.tradeName}}</p>
+                        <p>{{this.formattedData.tradeName}}</p>
                       </div>
                     </li>
                   {{/if}}
-                  {{#if data.unit}}
+                  {{#if this.formattedData.unit}}
                     <li>
                       <div>
                         <h3>Unidade</h3>
-                        <p>{{data.unit}}</p>
+                        <p>{{this.formattedData.unit}}</p>
                       </div>
                     </li>
                   {{/if}}
-                  {{#if data.federalTaxNumber}}
+                  {{#if this.formattedData.federalTaxNumber}}
                     <li>
                       <div>
                         <h3>Número de Inscrição</h3>
-                        <p>{{data.federalTaxNumber}}</p>
+                        <p>{{this.formattedData.federalTaxNumber}}</p>
                       </div>
                     </li>
                   {{/if}}
-                  {{#if data.openedOn}}
+                  {{#if this.formattedData.openedOn}}
                     <li>
                       <div>
                         <h3>Data de Abertura</h3>
-                        <p>{{data.openedOn}}</p>
+                        <p>{{this.formattedData.openedOn}}</p>
                       </div>
                     </li>
                   {{/if}}
-                  {{#if data.legalNature}}
+                  {{#if this.formattedData.legalNature}}
                     <li>
                       <div>
                         <h3>Natureza Jurídica</h3>
-                        <p>{{data.legalNature}}</p>
+                        <p>{{this.formattedData.legalNature}}</p>
                       </div>
                     </li>
                   {{/if}}
-                  {{#if data.responsableEntity}}
+                  {{#if this.formattedData.responsableEntity}}
                     <li>
                       <div>
                         <h3>Ente Federativo Responsável</h3>
-                        <p>{{data.responsableEntity}}</p>
+                        <p>{{this.formattedData.responsableEntity}}</p>
                       </div>
                     </li>
                   {{/if}}
-                  {{#if data.status}}
+                  {{#if this.formattedData.status}}
                     <li>
                       <div>
                         <h3>Situação Cadastral</h3>
-                        <p>{{data.status}}</p>
+                        <p>{{this.formattedData.status}}</p>
                       </div>
                     </li>
                   {{/if}}
@@ -105,14 +103,14 @@
               </div>
             {{/if}}
           </section>
-          {{#if data.address}}
+          {{#if this.formattedData.address}}
             <section class='content-item'>
               <h2>Endereço</h2>
               <div class='container-address'>
                 <div>
-                  <p>{{data.address.address_p1}}</p>
-                  <p>{{data.address.address_p2}}</p>
-                  <p>{{data.address.address_p3}}</p>
+                  <p>{{this.formattedData.address.address_p1}}</p>
+                  <p>{{this.formattedData.address.address_p2}}</p>
+                  <p>{{this.formattedData.address.address_p3}}</p>
                 </div>
                 <div>
                   <iframe
@@ -120,14 +118,14 @@
                     loading='lazy'
                     allowfullscreen
                     referrerpolicy='no-referrer-when-downgrade'
-                    src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDyToojxnr4s_2RXXRc-20H0zu9Py8u9Ks&q={{data.address.address_p1}} {{data.address.address_p2}}'
+                    src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDyToojxnr4s_2RXXRc-20H0zu9Py8u9Ks&q={{this.formattedData.address.address_p1}} {{this.formattedData.address.address_p2}}'
                   >
                   </iframe>
                 </div>
               </div>
             </section>
           {{/if}}
-          {{#if data.email}}
+          {{#if this.formattedData.email}}
             <section class='content-item'>
               <h2>Contato</h2>
               <div class='content-list-container'>
@@ -135,7 +133,7 @@
                   <li>
                     <div>
                       <h3>Email</h3>
-                      <p>{{data.email}}</p>
+                      <p>{{this.formattedData.email}}</p>
                     </div>
                   </li>
                   <li>
@@ -150,7 +148,7 @@
               </div>
             </section>
           {{/if}}
-          {{#if data.economicActivities}}
+          {{#if this.formattedData.economicActivities}}
             <section class='content-item'>
               <h2>Atividades Econômicas</h2>
               <div
@@ -160,7 +158,7 @@
                   <li>
                     <div>
                       <h3>Atividade Econômica Primária</h3>
-                      {{#if data.economicActivities.main}}
+                      {{#if this.formattedData.economicActivities.main}}
 
                         {{#each
                           data.economicActivities.main
@@ -179,7 +177,7 @@
                   <li>
                     <div>
                       <h3>Atividade Econômica Secundária</h3>
-                      {{#if data.economicActivities.secondary}}
+                      {{#if this.formattedData.economicActivities.secondary}}
 
                         {{#each
                           data.economicActivities.secondary
@@ -200,14 +198,14 @@
             </section>
           {{/if}}
 
-          {{#if data.shareCapital}}
+          {{#if this.formattedData.shareCapital}}
             <section class='content-item'>
               <h2>Capital Social</h2>
-              <p>R$ {{data.shareCapital}}</p>
+              <p>R$ {{this.formattedData.shareCapital}}</p>
             </section>
           {{/if}}
           <section class='content-item'>
-            {{#if data.partners}}
+            {{#if this.formattedData.partners}}
               <div class='content-list-container'>
                 <ul>
                   <li>
