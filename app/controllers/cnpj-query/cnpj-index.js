@@ -4,7 +4,7 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
 
-export default class CnpjQueryController extends Controller {
+export default class CnpjQueryCnpjIndexController extends Controller {
   @tracked hasError = false;
   @tracked cnpjInput = ''; // input cnpj
   @tracked cnpjUrlParam = '';
@@ -18,10 +18,10 @@ export default class CnpjQueryController extends Controller {
 
   @action shareCapitalParser(number) {
     let shareCapital = number.toString().split('.');
-  
+
     let capital = shareCapital[0];
     let rest = shareCapital[1];
-  
+
     return (
       capital
         .split('')
@@ -33,27 +33,27 @@ export default class CnpjQueryController extends Controller {
         .reverse()
         .join('') + `,${rest ? rest : '00'}`
     );
-  };
-  
+  }
+
   @action economicActivitiesParser(activitiesArr) {
     const parsedActivitiesArr = activitiesArr.map((e) => {
       e.code = e.code.replace(/\D+/g, '').match(/(\d{0,4})(\d{0,1})(\d{0,2})/);
-  
+
       e.code =
         `${e.code[1]}` +
         (e.code[2] ? `-${e.code[2]}` : ``) +
         (e.code[3] ? `/${e.code[3]}` : ``);
-  
+
       return e;
     });
-  
+
     const activitiesObj = {
       main: parsedActivitiesArr.filter((e) => e.isMain),
       secondary: parsedActivitiesArr.filter((e) => !e.isMain),
     };
     return activitiesObj;
-  };
-  
+  }
+
   @action adressParser(address) {
     const addressObj = {
       address_p1: `${address.streetSuffix ? address.streetSuffix + ' ' : ''}${
@@ -62,19 +62,19 @@ export default class CnpjQueryController extends Controller {
       address_p2: `${address.district}, ${address.city.name} - ${address.state}`,
       address_p3: `CEP: ${address.postalCode}`,
     };
-  
+
     return addressObj;
-  };
-  
+  }
+
   @action legalNatureParser(obj) {
     obj.code = obj.code.replace(/\D+/g, '').match(/(\d{0,3})(\d{0,1})/);
     obj.code = `${obj.code[1]}` + (obj.code[2] ? `-${obj.code[2]}` : ``);
     return `${obj.code} - ${obj.description}`;
-  };
-  
+  }
+
   @action dateParser(date) {
     return date.toISOString().substring(0, 10).split('-').reverse().join('/');
-  };
+  }
 
   @action setErrorStatus(status) {
     this.hasError = status;
@@ -86,17 +86,17 @@ export default class CnpjQueryController extends Controller {
     let num = '';
     if (!e && urlInput) {
       num = urlInput;
-    } else if(e) {
+    } else if (e) {
       num = e.target.value;
     } else {
       return;
     }
-    console.log("ADICIONOU INPUT")
-    
+    console.log('ADICIONOU INPUT');
+
     num = num
-    .replace(/\D+/g, '')
-    .match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/);
-    
+      .replace(/\D+/g, '')
+      .match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/);
+
     this.cnpjInput =
       `${num[1]}` +
       (num[2] ? `.${num[2]}` : ``) +
@@ -108,11 +108,13 @@ export default class CnpjQueryController extends Controller {
   }
 
   @action onSubmit() {
-    this.router.transitionTo(`/cnpj-query/${this.cnpjInput.match(/\d/g).join('')}`)
+    this.router.transitionTo(
+      `/cnpj-query/${this.cnpjInput.match(/\d/g).join('')}`
+    );
   }
 
   @action dataParser(dataObject) {
-    if(!dataObject) return;
+    if (!dataObject) return;
 
     this.formattedData = dataObject;
     this.formattedData.economicActivities = this.economicActivitiesParser(
@@ -128,7 +130,9 @@ export default class CnpjQueryController extends Controller {
     this.formattedData.legalNature = this.legalNatureParser(
       dataObject.legalNature
     );
-    this.formattedData.openedOn = this.dateParser(new Date(dataObject.openedOn));
+    this.formattedData.openedOn = this.dateParser(
+      new Date(dataObject.openedOn)
+    );
     this.formattedData.email = dataObject.email.toLowerCase();
     return this.formattedData;
   }

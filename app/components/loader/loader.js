@@ -15,7 +15,7 @@ export default class LoaderLoaderComponent extends Component {
 
   @task
   *getCnpjData() {
-    if(!this.args.urlCnpj) return;
+    if (!this.args.urlCnpj) return;
     yield timeout(500);
     console.log('RODOU FETCH');
 
