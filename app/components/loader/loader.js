@@ -10,21 +10,22 @@ export default class LoaderLoaderComponent extends Component {
 
   @tracked queryResult;
   @tracked error = false;
-
   @tracked dataType = 'mock'; // api - mock
 
   @task
-  *getCnpjData() {
-    if (!this.args.urlCnpj) return;
-    yield timeout(500);
-    console.log('RODOU FETCH');
+  *getCnpjData(cnpj) {
+    this.queryResult = null;
 
-    if (this.args.urlCnpj.length == 14) {
+    if (!cnpj) return;
+    yield timeout(500);
+    console.log('RODOU FETCH', cnpj);
+
+    if (cnpj.length == 14) {
       this.queryResult = '';
       if (this.dataType == 'api') {
         this.queryResult = yield this.store.findRecord(
           'cnpjQuery',
-          this.args.urlCnpj
+          cnpj
         );
         this.error = false;
       } else if (this.dataType == 'mock') {
@@ -34,7 +35,7 @@ export default class LoaderLoaderComponent extends Component {
         data.map((obj) => {
           if (
             obj.legalEntity.federalTaxNumber.match(/\d/g).join('') ==
-            this.args.urlCnpj
+            cnpj
           ) {
             this.queryResult = obj.legalEntity;
           }
@@ -44,11 +45,13 @@ export default class LoaderLoaderComponent extends Component {
 
       if (!this.queryResult) {
         this.error = 'No query result!';
+        console.log("olha o erro ai", this.error)
         return;
       }
     } else {
       this.error = 'No valid input inserted!';
       return;
     }
+    
   }
 }

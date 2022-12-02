@@ -1,2 +1,185 @@
-{{page-title "CnpjId"}}
-{{outlet}}
+{{page-title 'CnpjId'}}
+{{log "1 model" @model}}
+<DataContainer::DataContainer @updateUrl={{this.updateUrl}} @onSubmit={{this.onSubmit}} @cnpjId={{@model}} as |data cnpjId error| >
+  <div class='data-container' {{did-update (fn this.updateUrl cnpjId data error) data}}>
+    <section class='content-item'>
+      {{#if data.name}}
+        <h2>{{data.name}}</h2>
+        <div class='content-list-container'>
+          <ul>
+            {{#if data.tradeName}}
+              <li>
+                <div>
+                  <h3>Nome Fantasia</h3>
+                  <p>{{data.tradeName}}</p>
+                </div>
+              </li>
+            {{/if}}
+            {{#if data.unit}}
+              <li>
+                <div>
+                  <h3>Unidade</h3>
+                  <p>{{data.unit}}</p>
+                </div>
+              </li>
+            {{/if}}
+            {{#if data.federalTaxNumber}}
+              <li>
+                <div>
+                  <h3>Número de Inscrição</h3>
+                  <p>{{data.federalTaxNumber}}</p>
+                </div>
+              </li>
+            {{/if}}
+            {{#if data.openedOn}}
+              <li>
+                <div>
+                  <h3>Data de Abertura</h3>
+                  <p>{{data.openedOn}}</p>
+                </div>
+              </li>
+            {{/if}}
+            {{#if data.legalNature}}
+              <li>
+                <div>
+                  <h3>Natureza Jurídica</h3>
+                  <p>{{data.legalNature}}</p>
+                </div>
+              </li>
+            {{/if}}
+            {{#if data.responsableEntity}}
+              <li>
+                <div>
+                  <h3>Ente Federativo Responsável</h3>
+                  <p>{{data.responsableEntity}}</p>
+                </div>
+              </li>
+            {{/if}}
+            {{#if data.status}}
+              <li>
+                <div>
+                  <h3>Situação Cadastral</h3>
+                  <p>{{data.status}}</p>
+                </div>
+              </li>
+            {{/if}}
+          </ul>
+        </div>
+      {{/if}}
+    </section>
+    {{#if data.address}}
+      <section class='content-item'>
+        <h2>Endereço</h2>
+        <div class='container-address'>
+          <div>
+            <p>{{data.address.address_p1}}</p>
+            <p>{{data.address.address_p2}}</p>
+            <p>{{data.address.address_p3}}</p>
+          </div>
+          <div>
+            <iframe
+              title='maps'
+              loading='lazy'
+              allowfullscreen
+              referrerpolicy='no-referrer-when-downgrade'
+              src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDyToojxnr4s_2RXXRc-20H0zu9Py8u9Ks&q={{data.address.address_p1}} {{data.address.address_p2}}'
+            >
+            </iframe>
+          </div>
+        </div>
+      </section>
+    {{/if}}
+    {{#if data.email}}
+      <section class='content-item'>
+        <h2>Contato</h2>
+        <div class='content-list-container'>
+          <ul>
+            <li>
+              <div>
+                <h3>Email</h3>
+                <p>{{data.email}}</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <h3>Telefone</h3>
+                {{#each data.phones as |phone|}}
+                  <p>({{phone.ddd}}) {{phone.number}}</p>
+                {{/each}}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+    {{/if}}
+    {{#if data.economicActivities}}
+      <section class='content-item'>
+        <h2>Atividades Econômicas</h2>
+        <div class='content-list-container content-list-container--column'>
+          <ul>
+            <li>
+              <div>
+                <h3>Atividade Econômica Primária</h3>
+                {{#if data.economicActivities.main}}
+
+                  {{#each data.economicActivities.main as |activity|}}
+                    <p>{{activity.code}} - {{activity.description}}</p>
+                  {{/each}}
+
+                {{else}}
+
+                  <p>Nenhuma atividade informada</p>
+
+                {{/if}}
+              </div>
+            </li>
+            <li>
+              <div>
+                <h3>Atividade Econômica Secundária</h3>
+                {{#if data.economicActivities.secondary}}
+
+                  {{#each data.economicActivities.secondary as |activity|}}
+                    <p>{{activity.code}} - {{activity.description}}</p>
+                  {{/each}}
+
+                {{else}}
+
+                  <p>Nenhuma atividade informada</p>
+
+                {{/if}}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+    {{/if}}
+
+    {{#if data.shareCapital}}
+      <section class='content-item'>
+        <h2>Capital Social</h2>
+        <p>R$ {{data.shareCapital}}</p>
+      </section>
+    {{/if}}
+    <section class='content-item'>
+      {{#if data.partners}}
+        <div class='content-list-container'>
+          <ul>
+            <li>
+              <div>
+                <h2>Sócios ou Administradores</h2>
+                {{#each data.partners as |partner|}}
+                  <div class='partners-container'>
+                    <h3>Nome <p>{{partner.name}}</p></h3>
+                    <h3>Qualificação
+                      <p>{{partner.qualification.description}}</p></h3>
+                  </div>
+                {{/each}}
+
+              </div>
+            </li>
+          </ul>
+        </div>
+      {{/if}}
+    </section>
+  </div>
+</DataContainer::DataContainer>

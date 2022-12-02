@@ -1,0 +1,43 @@
+{{log "2 model" this.args.cnpjId}}
+{{log "2.1 model" this.cnpjInputId}}
+<div {{did-update (fn this.addCnpjInput null this.args.cnpjId) (fn this.onSubmit) this.args.cnpjId}} ></div>
+<div {{did-update (fn this.onSubmit) this.args.cnpjId}} ></div>
+<Loader::Loader
+  @hasError={{this.hasError}}
+  @cnpjInputId={{this.cnpjInputId}}
+  @cnpjId={{this.args.cnpjId}}
+  as |isRunning data error|
+>
+
+  <div
+    class='form-container'
+    {{did-update (fn this.dataParser data) data}}
+    
+  >
+    {{! for when the request is made with the input}}
+    <Form::Form
+      @noValidate={{null}}
+      @id={{'cnpj-form'}}
+      @onSubmit={{this.onSubmit}}
+      @target='cnpj-input'
+    >
+      <div
+        class='cnpj-input-container
+          {{if this.headerIsFixed "cnpj-input-container-fixed" null}}'
+      >
+        <h1 class='cnpj-input-title'>Consultar dados de CNPJ grátis online</h1>
+        <TextArea::TextArea
+          @value={{this.cnpjInput}}
+          @onInput={{this.addCnpjInput}}
+          @onSubmit={{this.onSubmit}}
+          @hasError={{error}}
+          @isLoading={{isRunning}}
+          @placeholder={{'Digite o número do CNPJ'}}
+          @name={{'cnpj-input'}}
+          @id={{'cnpj-input'}}
+        />
+      </div>
+    </Form::Form>
+  </div>
+  {{yield this.formattedData this.cnpjInputId error}}
+</Loader::Loader>

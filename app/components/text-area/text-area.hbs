@@ -9,6 +9,7 @@
   <input
     value={{if this.args.value this.args.value ""}}
     oninput={{this.args.onInput}}
+    onsubmit={{this.args.onSubmit}}
     class={{if this.args.hasError "error" null}}
     placeholder={{this.args.placeholder}}
     name={{this.args.name}}
