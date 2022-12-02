@@ -1,5 +1,4 @@
 {{page-title 'CnpjId'}}
-{{log "1 model" @model}}
 <DataContainer::DataContainer @updateUrl={{this.updateUrl}} @onSubmit={{this.onSubmit}} @cnpjId={{@model}} as |data cnpjId error| >
   <div class='data-container' {{did-update (fn this.updateUrl cnpjId data error) data}}>
     <section class='content-item'>

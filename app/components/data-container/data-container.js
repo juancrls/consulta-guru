@@ -104,7 +104,6 @@ export default class DataContainerDataContainerComponent extends Component {
 
   @action onSubmit() {
     this.cnpjInputId = this.cnpjInput.match(/\d/g).join(''); // will activate did-update and run the fetch function
-    console.log("ANTES DO RODOU FETCH", this.cnpjInputId)
   }
 
   @action dataParser(dataObject) {

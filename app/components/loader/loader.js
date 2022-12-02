@@ -18,7 +18,6 @@ export default class LoaderLoaderComponent extends Component {
 
     if (!cnpj) return;
     yield timeout(500);
-    console.log('RODOU FETCH', cnpj);
 
     if (cnpj.length == 14) {
       this.queryResult = '';
@@ -45,7 +44,6 @@ export default class LoaderLoaderComponent extends Component {
 
       if (!this.queryResult) {
         this.error = 'No query result!';
-        console.log("olha o erro ai", this.error)
         return;
       }
     } else {

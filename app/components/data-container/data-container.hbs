@@ -1,7 +1,3 @@
-{{log "2 model" this.args.cnpjId}}
-{{log "2.1 model" this.cnpjInputId}}
-<div {{did-update (fn this.addCnpjInput null this.args.cnpjId) (fn this.onSubmit) this.args.cnpjId}} ></div>
-<div {{did-update (fn this.onSubmit) this.args.cnpjId}} ></div>
 <Loader::Loader
   @hasError={{this.hasError}}
   @cnpjInputId={{this.cnpjInputId}}
@@ -12,7 +8,8 @@
   <div
     class='form-container'
     {{did-update (fn this.dataParser data) data}}
-    
+    {{did-update (fn this.addCnpjInput null this.args.cnpjId) (fn this.onSubmit) this.args.cnpjId}}
+    {{did-update (fn this.onSubmit) this.args.cnpjId}}
   >
     {{! for when the request is made with the input}}
     <Form::Form
