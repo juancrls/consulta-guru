@@ -103,7 +103,9 @@ export default class DataContainerDataContainerComponent extends Component {
   }
 
   @action onSubmit() {
-    this.cnpjInputId = this.cnpjInput.match(/\d/g).join(''); // will activate did-update and run the fetch function
+    if(this.cnpjInput) {
+      this.cnpjInputId = this.cnpjInput.match(/\d/g).join(''); // will activate did-update and run the fetch function
+    }
   }
 
   @action dataParser(dataObject) {
