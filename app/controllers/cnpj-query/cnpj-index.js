@@ -5,7 +5,9 @@ import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
 
 export default class CnpjQueryCnpjIndexController extends Controller {
- 
-}
+  @service router;
 
-// 00.000.000/0001-91
+  @action updateUrl(cnpjId, data, error) {
+    this.router.transitionTo(`/consultar-cnpj-gratis/${cnpjId}`);
+  }
+}
