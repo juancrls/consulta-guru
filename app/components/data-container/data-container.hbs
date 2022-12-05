@@ -18,10 +18,7 @@
       @onSubmit={{this.onSubmit}}
       @target='cnpj-input'
     >
-      <div
-        class='cnpj-input-container
-          {{if this.headerIsFixed "cnpj-input-container-fixed" null}}'
-      >
+      <div class='cnpj-input-container'>
         <h1 class='cnpj-input-title'>Consultar dados de CNPJ grátis online</h1>
         <TextArea::TextArea
           @value={{this.cnpjInput}}
