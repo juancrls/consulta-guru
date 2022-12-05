@@ -6,8 +6,8 @@
   @cnpjId={{@model}}
   as |data cnpjId error|
 >
-<div {{did-update (fn this.updateUrl cnpjId data error) data}}></div>
-  <div class='page-content' id="first-page-content">
+<div class="page-sections-wrapper" {{did-update (fn this.updateUrl cnpjId data error) data}}>
+<div class='page-content' id="first-page-content">
     <h2>Como funciona a consulta de CNPJ online?</h2>
     <p>As novas tecnologias só tem ajudado as empresas evoluírem, ainda mais
       quando falamos em automação de dados. O nosso sistema para consultar CNPJs
@@ -58,6 +58,7 @@
       Gerador de CPF, o Gerador de CNPJ, a Consulta de CPF, o Validador de CPF e
       o Validador de CNPJ.</p>
   </div>
+</div>
 </DataContainer::DataContainer>
 
 {{outlet}}
