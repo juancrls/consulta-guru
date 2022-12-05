@@ -630,3 +630,9 @@ footer {
     width: 90%;
   }
 }
+
+.loader-svg-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
