@@ -445,10 +445,10 @@ footer {
 }
 
 .footer-container {
-  width: 71%;
+  width: 1085px;
+  height: 110.95px;
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
 }
 
@@ -474,16 +474,19 @@ footer {
 
 .footer-section .footer-copyright {
   font-size: 0.8rem;
+  line-height: 0.9em;
+  font-weight: 400;
   letter-spacing: 0.2px;
   opacity: 0.8;
   margin: 1em 0 0.8em;
 }
 
 .footer-section a {
+  width: fit-content;
   color: white;
   background: #0080cc;
   text-decoration: none;
-  font-weight: 800;
+  font-weight: 700;
   padding: 0.5rem 1.2rem;
   font-size: 0.9rem;
   border-radius: 3px;
@@ -499,11 +502,11 @@ footer {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-left: 80px;
+  margin-left: 85px;
 }
 
 .footer-links ul {
-  margin-right: 3.5rem;
+  margin-right: 2.5rem;
   width: 12.5rem;
 }
 
@@ -515,6 +518,7 @@ footer {
 
 .footer-links ul li p {
   font-weight: 700;
+  padding-bottom: 0.5em;
   opacity: 0.9;
 }
 
