@@ -1,8 +1,8 @@
 <Loader::Loader
-  @hasError={{this.hasError}}
   @cnpjInputId={{this.cnpjInputId}}
   @cnpjId={{this.args.cnpjId}}
-  as |isRunning data error|
+  @error={{this.error}}
+  as |isRunning data|
 >
 
   <div
@@ -24,7 +24,7 @@
           @value={{this.cnpjInput}}
           @onInput={{this.addCnpjInput}}
           @onSubmit={{this.onSubmit}}
-          @hasError={{error}}
+          @error={{this.error}}
           @isLoading={{isRunning}}
           @placeholder={{'Digite o número do CNPJ'}}
           @name={{'cnpj-input'}}
@@ -33,5 +33,5 @@
       </div>
     </Form::Form>
   </div>
-  {{yield this.formattedData this.cnpjInputId error isRunning}}
+  {{yield this.formattedData this.cnpjInputId this.error isRunning}}
 </Loader::Loader>
