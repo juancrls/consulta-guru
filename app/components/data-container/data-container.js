@@ -18,12 +18,12 @@ export default class DataContainerDataContainerComponent extends Component {
       this.formattedData = null;
       this.addCnpjInput(null, this.args.cnpjId); // if the url contains a cnpjId, it will add on the input text area
       
-      // if(!this.validateCnpj(this.cnpjInput)) {
-      //   this.error = "CNPJ inválido inserido";
-      //   return;
-      // } else {
-      //   this.error = null;
-      // }
+      if(!this.validateCnpj(this.cnpjInput)) {
+        this.error = "CNPJ inválido inserido";
+        return;
+      } else {
+        this.error = null;
+      }
     }
   }
 

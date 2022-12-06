@@ -4,7 +4,6 @@
   @cnpjId={{@model}}
   as |data cnpjId error isRunning|
 >
-{{log "BANANAS!"}}
   <div
     class='data-container'
     {{did-update (fn this.updateUrl cnpjId data error) data}}
