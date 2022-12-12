@@ -9,7 +9,7 @@ export default class CnpjQueryCnpjIdController extends Controller {
     super(...args);
   }
 
-  @service router
+  @service router;
 
   @action updateUrl(cnpjId, data, error) {
     this.router.transitionTo(`/consultar-cnpj-gratis/${cnpjId}`);

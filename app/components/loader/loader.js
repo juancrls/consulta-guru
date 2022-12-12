@@ -13,12 +13,11 @@ export default class LoaderLoaderComponent extends Component {
 
   @task
   *getCnpjData(cnpj) {
-    this.queryResult = ''
-    // console.log("AAAAAAAAAA", this.queryResult)
-    
+    this.queryResult = '';
+
     if (!cnpj || this.args.error) return;
     yield timeout(500);
-    
+
     if (this.dataType == 'api') {
       this.queryResult = yield this.store.findRecord('cnpjQuery', cnpj);
     } else if (this.dataType == 'mock') {

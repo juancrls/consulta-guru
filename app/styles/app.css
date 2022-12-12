@@ -379,7 +379,7 @@ li {
 /* /Data */
 
 /* Query */
-.content-item h2 {
+.content-container h2 {
   font-size: 1.6rem;
   line-height: 1rem;
   font-weight: 500;
@@ -387,7 +387,7 @@ li {
   margin-bottom: 2rem;
 }
 
-.content-item h3 {
+.content-container h3 {
   font-size: 1rem;
   font-weight: 700;
   opacity: 0.85;
@@ -395,16 +395,16 @@ li {
   color: #1b2738;
 }
 
-.content-item p {
+.content-container p {
   opacity: 0.6;
   margin-top: 2px;
 }
 
-.content-item:not(:first-of-type) {
+.content-container:not(:first-of-type) {
   margin-top: 100px;
 }
 
-.content-item:not(:first-of-type) h2 {
+.content-container:not(:first-of-type) h2 {
   opacity: 0.8;
   margin-bottom: 3rem;
 }
