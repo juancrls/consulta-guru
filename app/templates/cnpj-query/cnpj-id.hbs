@@ -9,15 +9,15 @@
     {{did-update (fn this.updateUrl cnpjId data error) data}}
   >
     {{#if isRunning}}
-      <div class="loader-svg-container">
+      <div data-test-content-loading class="loader-svg-container">
         <svg class="loader" viewBox="0 0 24 24">
           <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"></path>
         </svg>
       </div>
     {{else if data}}
-      <section class='content-item'>
+      <section data-test-content-container class='content-container'>
         {{#if data.name}}
-          <h2>{{data.name}}</h2>
+          <h2 class="data-name">{{data.name}}</h2>
           <div class='content-list-container'>
             <ul>
               {{#if data.tradeName}}
@@ -40,7 +40,7 @@
                 <li>
                   <div>
                     <h3>Número de Inscrição</h3>
-                    <p>{{data.federalTaxNumber}}</p>
+                    <p class="federal-tax-number">{{data.federalTaxNumber}}</p>
                   </div>
                 </li>
               {{/if}}
