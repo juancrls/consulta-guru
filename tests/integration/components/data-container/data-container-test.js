@@ -14,7 +14,7 @@ module(
 
       await render(hbs`<DataContainer::DataContainer />`);
 
-      assert.dom(this.element).hasText('');
+      assert.dom(this.element).hasText('Consultar dados de CNPJ grátis online Search Icon');
 
       // Template block usage:
       await render(hbs`
@@ -23,7 +23,7 @@ module(
       </DataContainer::DataContainer>
     `);
 
-      assert.dom(this.element).hasText('template block text');
+      assert.dom(this.element).hasText('Consultar dados de CNPJ grátis online Search Icon template block text');
     });
   }
 );
