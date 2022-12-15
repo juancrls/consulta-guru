@@ -12,17 +12,24 @@ export default class DataContainerDataContainerComponent extends Component {
   @tracked formattedData = null;
   @service store;
   @service router;
+  @service inputErrorState;
+
   constructor(...args) {
     super(...args);
+
     if (this.args.cnpjId) {
       this.formattedData = null;
+      
       this.addCnpjInput(null, this.args.cnpjId); // if the url contains a cnpjId, it will add on the input text area
-
+      
       if (!this.validateCnpj(this.cnpjInput)) {
-        this.error = 'CNPJ inválido inserido';
+        this.inputErrorState.error = 'CNPJ inválido inserido';
+        this.inputErrorState.invalidCnpj = this.cnpjInput;
+        this.router.transitionTo("/consultar-cnpj-gratis/");
         return;
       } else {
-        this.error = null;
+        this.inputErrorState.error = null;
+        this.inputErrorState.invalidCnpj = null;
       }
     }
   }
@@ -158,10 +165,10 @@ export default class DataContainerDataContainerComponent extends Component {
 
   @action onSubmit() {
     if (!this.validateCnpj(this.cnpjInput)) {
-      this.error = 'CNPJ inválido inserido';
+      this.inputErrorState.error = 'CNPJ inválido inserido';
       return;
     } else {
-      this.error = null;
+      this.inputErrorState.error = null;
     }
 
     if (this.cnpjInput.match(/\d/g).join('') == this.args.cnpjId) return; // will avoid multiple consecutive requests for the same cnpj
@@ -172,14 +179,6 @@ export default class DataContainerDataContainerComponent extends Component {
   }
 
   @action dataParser(dataObject) {
-    if (
-      this.cnpjInput.match(/\d/g).join('') == this.args.cnpjId &&
-      this.error
-    ) {
-      // this.formattedData = null;
-      // console.log("data RESETADA (2)")
-    }
-
     if (!dataObject) return;
 
     this.formattedData = dataObject;

@@ -1,9 +1,12 @@
 <Loader::Loader
   @cnpjInputId={{this.cnpjInputId}}
   @cnpjId={{this.args.cnpjId}}
-  @error={{this.error}}
+  @error={{this.inputErrorState.error}}
   as |isRunning data|
 >
+
+{{log "calicaaa" this.inputErrorState.error}}
+{{log "222222" this.inputErrorState.invalidCnpj}}
 
   <div
     class='form-container'
@@ -21,10 +24,10 @@
       <div class='cnpj-input-container'>
         <h1 class='cnpj-input-title'>Consultar dados de CNPJ grátis online</h1>
         <TextArea::TextArea
-          @value={{this.cnpjInput}}
+          @value={{if this.inputErrorState.invalidCnpj this.inputErrorState.invalidCnpj this.cnpjInput}}
           @onInput={{this.addCnpjInput}}
           @onSubmit={{this.onSubmit}}
-          @error={{this.error}}
+          @error={{this.inputErrorState.error}}
           @isLoading={{isRunning}}
           @placeholder={{'Digite o número do CNPJ'}}
           @name={{'cnpj-input'}}
@@ -33,5 +36,5 @@
       </div>
     </Form::Form>
   </div>
-  {{yield this.formattedData this.cnpjInputId this.error isRunning}}
+  {{yield this.formattedData this.cnpjInputId this.inputErrorState.error isRunning}}
 </Loader::Loader>

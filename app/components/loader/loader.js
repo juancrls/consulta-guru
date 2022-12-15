@@ -16,7 +16,7 @@ export default class LoaderLoaderComponent extends Component {
     this.queryResult = '';
 
     if (!cnpj || this.args.error) return;
-    yield timeout(200);
+    yield timeout(2000);
 
     if (this.dataType == 'api') {
       this.queryResult = yield this.store.findRecord('cnpjQuery', cnpj);
