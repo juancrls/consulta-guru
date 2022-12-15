@@ -4,6 +4,8 @@ import {
   setupTest as upstreamSetupTest,
 } from 'ember-qunit';
 
+import { click, fillIn, find, waitUntil } from '@ember/test-helpers';
+
 // This file exists to provide wrappers around ember-qunit's / ember-mocha's
 // test setup functions. This way, you can easily extend the setup that is
 // needed per test type.
@@ -39,4 +41,15 @@ function setupTest(hooks, options) {
   // Additional setup for unit tests can be done here.
 }
 
-export { setupApplicationTest, setupRenderingTest, setupTest };
+async function addInputAndSubmit(input) {
+  
+  await click('[data-test-text-area]');
+  fillIn('[data-test-text-area]', input);
+  await waitUntil(() => find('[data-test-text-area-submit-button]'));
+  await click('[data-test-text-area-submit-button]');
+  
+
+  await waitUntil(() => find('[data-test-text-area-submit-button]'));
+}
+
+export { setupApplicationTest, setupRenderingTest, setupTest, addInputAndSubmit };
