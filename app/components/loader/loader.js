@@ -16,7 +16,7 @@ export default class LoaderLoaderComponent extends Component {
     this.queryResult = '';
 
     if (!cnpj || this.args.error) return;
-    yield timeout(2000);
+    yield timeout(500);
 
     if (this.dataType == 'api') {
       this.queryResult = yield this.store.findRecord('cnpjQuery', cnpj);
@@ -27,6 +27,8 @@ export default class LoaderLoaderComponent extends Component {
       data.map((obj) => {
         if (obj.legalEntity.federalTaxNumber.match(/\d/g).join('') == cnpj) {
           this.queryResult = obj.legalEntity;
+        } else {
+          this.queryResult = null;
         }
       });
     }

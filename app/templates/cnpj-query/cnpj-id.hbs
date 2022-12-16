@@ -6,7 +6,7 @@
 >
   <div
     class='data-container'
-    {{did-update (fn this.updateUrl cnpjId data error) data}}
+    {{did-update (fn this.updateUrl cnpjId data error) cnpjId}}
   >
     {{#if isRunning}}
       <div data-test-content-loading class="loader-svg-container">

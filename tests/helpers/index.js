@@ -42,14 +42,17 @@ function setupTest(hooks, options) {
 }
 
 async function addInputAndSubmit(input) {
-  
   await click('[data-test-text-area]');
   fillIn('[data-test-text-area]', input);
   await waitUntil(() => find('[data-test-text-area-submit-button]'));
   await click('[data-test-text-area-submit-button]');
-  
 
   await waitUntil(() => find('[data-test-text-area-submit-button]'));
 }
 
-export { setupApplicationTest, setupRenderingTest, setupTest, addInputAndSubmit };
+export {
+  setupApplicationTest,
+  setupRenderingTest,
+  setupTest,
+  addInputAndSubmit,
+};

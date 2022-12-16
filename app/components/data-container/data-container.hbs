@@ -8,8 +8,8 @@
   <div
     class='form-container'
     {{did-update (fn this.dataParser data) data}}
-    {{did-update (fn this.addCnpjInput null this.args.cnpjId) (fn this.onSubmit) this.args.cnpjId}}
-    {{did-update (fn this.onSubmit) this.args.cnpjId}}
+    {{did-update (fn this.addCnpjInput null this.args.cnpjId) this.onSubmit this.args.cnpjId}}
+    {{did-update this.onSubmit this.args.cnpjId}}
   >
     {{! for when the request is made with the input}}
     <Form::Form

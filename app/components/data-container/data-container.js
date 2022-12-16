@@ -13,6 +13,7 @@ export default class DataContainerDataContainerComponent extends Component {
   @service store;
   @service router;
   @service inputErrorState;
+  @service inputAlreadySubmited;
 
   constructor(...args) {
     super(...args);
@@ -164,22 +165,29 @@ export default class DataContainerDataContainerComponent extends Component {
   }
 
   @action onSubmit() {
+    let formattedCnpj = this.cnpjInput.match(/\d/g).join('');
+    this.inputAlreadySubmited.input = this.cnpjInputId
+
     if (!this.validateCnpj(this.cnpjInput)) {
       this.inputErrorState.error = 'CNPJ inválido inserido';
       return;
     } else {
       this.inputErrorState.error = null;
     }
-
-    if (this.cnpjInput.match(/\d/g).join('') == this.args.cnpjId) return; // will avoid multiple consecutive requests for the same cnpj
+    
+    if(this.inputAlreadySubmited.input == formattedCnpj) return; // will avoid multiple consecutive requests for the same cnpj
 
     if (this.cnpjInput) {
-      this.cnpjInputId = this.cnpjInput.match(/\d/g).join(''); // will activate did-update and run the fetch function
+      this.cnpjInputId = formattedCnpj; // will activate did-update and run the fetch function
     }
+
   }
 
   @action dataParser(dataObject) {
-    if (!dataObject) return;
+    if (!dataObject) {
+      this.formattedData = null;
+      return;
+    }
 
     this.formattedData = dataObject;
     this.formattedData.economicActivities = this.economicActivitiesParser(
