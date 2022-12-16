@@ -235,7 +235,7 @@ module('Acceptance | cnpj id', function (hooks) {
       ); // federal tax number should be equal to the URL number formatted
   });
 
-  test.only('should redirect to index when user click on the back arrow in navigator when is from an valid cnpj to an invalid cnpj', async function (assert) {
+  test('should redirect to index when user click on the back arrow in navigator when is from an valid cnpj to an invalid cnpj', async function (assert) {
     setupBrowserNavigationButtons();
 
     await visit('/consultar-cnpj-gratis/123');
@@ -251,7 +251,6 @@ module('Acceptance | cnpj id', function (hooks) {
       'Text Area should NOT have an error class'
     );
 
-    await this.pauseTest();
     assert
       .dom('[data-test-text-area]')
       .hasText(
