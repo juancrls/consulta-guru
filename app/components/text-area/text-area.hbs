@@ -10,7 +10,7 @@
       ></path>
     </svg>
   </div>
-  <input data-test-text-area
+  <input data-test-text-area {{did-insert (fn this.addSubmitListener)}}
     value={{if this.args.value this.args.value ""}}
     oninput={{this.args.onInput}}
     onsubmit={{this.args.onSubmit}}
@@ -30,7 +30,7 @@
       {{!-- LOADING... --}}
     {{else}}
       {{!-- <button onclick={{(perform this.args.onSubmit)}} type='button'> --}}
-      <button data-test-text-area-submit-button onclick={{this.args.onSubmit}} type='button'>
+      <button data-test-text-area-submit-button onclick={{this.args.onSubmit}} id="submit-button" type='button'>
         <svg
           class='search-icon'
           transform='rotate(10.8257)'
