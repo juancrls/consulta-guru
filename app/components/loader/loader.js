@@ -23,12 +23,20 @@ export default class LoaderLoaderComponent extends Component {
     } else if (this.dataType == 'mock') {
       let response = yield fetch('/api/data.json');
       let { data } = yield response.json();
+      
+      let hasData = false;
+      data.map((obj, i) => {
+        if(hasData) return;
 
-      data.map((obj) => {
         if (obj.legalEntity.federalTaxNumber.match(/\d/g).join('') == cnpj) {
           this.queryResult = obj.legalEntity;
-        } else {
+          hasData = true;
+          return;
+        }
+
+        if(data.length - 1 == i && !hasData) {
           this.queryResult = null;
+          return;
         }
       });
     }
