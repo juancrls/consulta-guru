@@ -20,9 +20,9 @@ module('Acceptance | cnpj id', function (hooks) {
   setupApplicationTest(hooks);
 
   test('should show loading div and data when accessed via URL', async function (assert) {
-    await visit('/consultar-cnpj-gratis/00000000000191');
-
-    // await waitUntil(() => find('[data-test-content-loading]'));
+    visit('/consultar-cnpj-gratis/00000000000191');
+    
+    await waitUntil(() => find('[data-test-content-loading]'));
     assert.ok(find('[data-test-content-loading]'), 'loader should be present');
 
     await waitUntil(() => find('[data-test-content-container]'));
@@ -92,16 +92,16 @@ module('Acceptance | cnpj id', function (hooks) {
       );
   });
 
-  test('should display an "invalid cnpj" error message if user forces the URL to an invalid CNPJ', async function (assert) {
+  test('should redirect to index and show error on input if user forces the URL to an invalid CNPJ', async function (assert) {
     setupBrowserNavigationButtons();
     await visit('/consultar-cnpj-gratis/123');
 
-    assert
-      .dom('[data-test-error-message]')
-      .hasText(
-        'CNPJ inválido inserido',
-        'Invalid CNPJ message should be displayed'
-      );
+    assert.strictEqual(
+      currentURL(),
+      '/consultar-cnpj-gratis',
+      'URL should have the correct CNPJ number after search'
+    );
+
     assert.ok(
       find('[data-test-text-area]').classList.contains('error'),
       'Text Area should have an error class'
@@ -125,16 +125,15 @@ module('Acceptance | cnpj id', function (hooks) {
     );
   });
 
-  // test('should display an "no data found" error message if user search for an invalid url using input', async function (assert) {
-  //   // NOT WORKING - functionality needs to be fixed
-  //   setupBrowserNavigationButtons()
-  //   await visit('/consultar-cnpj-gratis/');
+  test('should display an "no data found" error message if user search for an invalid url using input', async function (assert) {
+    setupBrowserNavigationButtons()
+    await visit('/consultar-cnpj-gratis/');
 
-  //   await addInputAndSubmit('83184591000121');
-  //   // await waitUntil(() => find('[data-test-error-message]'));
-  //   assert.dom('[data-test-error-message]').hasText("Não há dados para este CNPJ!", "CNPJ without data message should be displayed")
-  //   assert.notOk(find('[data-test-text-area]').classList.contains('error'), 'Text Area should NOT have an error class');
-  // });
+    await addInputAndSubmit('83184591000121');
+    await waitUntil(() => find('[data-test-error-message]'));
+    assert.dom('[data-test-error-message]').hasText("Não há dados para este CNPJ!", "CNPJ without data message should be displayed")
+    assert.notOk(find('[data-test-text-area]').classList.contains('error'), 'Text Area should NOT have an error class');
+  });
 
   test('should show the correct data when user search for an valid CNPJ after searching for a invalid', async function (assert) {
     setupBrowserNavigationButtons();
@@ -188,8 +187,9 @@ module('Acceptance | cnpj id', function (hooks) {
       );
   });
 
-  test('should show the correct data when user click on the back arrow in navigator (valid cnpj to valid cnpj)', async function (assert) {
+  test('should show the correct data when user click on the back arrow in navigator when is from an valid cnpj to another valid cnpj', async function (assert) {
     setupBrowserNavigationButtons();
+
     // BEFORE URL CHANGE
     await visit('/consultar-cnpj-gratis/00000000000191');
     assert.strictEqual(
@@ -205,19 +205,21 @@ module('Acceptance | cnpj id', function (hooks) {
         '00.000.000/0001-91',
         'CNPJ data field should contain the correct data before URL is changed'
       );
+
     // AFTER URL CHANGED
     await visit('/consultar-cnpj-gratis/18792479000101');
-    // assert.strictEqual(currentURL(), '/consultar-cnpj-gratis/18792479000101', 'URL should have the correct CNPJ number after change');
+    assert.strictEqual(currentURL(), '/consultar-cnpj-gratis/18792479000101', 'URL should have the correct CNPJ number after change');
 
     await waitUntil(() => find('[data-test-content-container]'));
     assert
       .dom('[data-test-item-federal-tax-number]')
       .hasText(
-        '00.000.000/0001-91',
+        '18.792.479/0001-01',
         'CNPJ data field should contain the correct data after URL change'
       );
+
     // PREVIOUS PAGE BUTTON CLICKED
-    backButton();
+    await backButton();
     assert.strictEqual(
       currentURL(),
       '/consultar-cnpj-gratis/00000000000191',
@@ -233,13 +235,29 @@ module('Acceptance | cnpj id', function (hooks) {
       ); // federal tax number should be equal to the URL number formatted
   });
 
-  test('should show the correct data when user click on the back arrow in navigator (valid cnpj to invalid cnpj)', async function (assert) {
+  test.only('should redirect to index when user click on the back arrow in navigator when is from an valid cnpj to an invalid cnpj', async function (assert) {
     setupBrowserNavigationButtons();
 
-    await visit('/consultar-cnpj-gratis/00000000000191');
     await visit('/consultar-cnpj-gratis/123');
-    assert.strictEqual(currentURL(), '/consultar-cnpj-gratis/123', '2');
+    await visit('/consultar-cnpj-gratis/00000000000191');
+    assert.strictEqual(currentURL(), '/consultar-cnpj-gratis/00000000000191', 'URL should have the correct CNPJ number before page back button is clicked');
 
-    await this.pauseTest(); // mostra os resultados pro 00000000000191 (deveria mostrar pro 123)
+    await backButton();
+
+    assert.strictEqual(currentURL(), '/consultar-cnpj-gratis', 'URL shouldbe in the index after page back button is clicked');
+
+    assert.notOk(
+      find('[data-test-text-area]').classList.contains('error'),
+      'Text Area should NOT have an error class'
+    );
+
+    await this.pauseTest();
+    assert
+      .dom('[data-test-text-area]')
+      .hasText(
+        '',
+        'CNPJ data field should NOT contain text'
+      );
+
   });
 });
