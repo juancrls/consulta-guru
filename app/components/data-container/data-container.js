@@ -165,6 +165,7 @@ export default class DataContainerDataContainerComponent extends Component {
   }
 
   @action onSubmit() {
+    if(!this.cnpjInput) return;
     let formattedCnpj = this.cnpjInput.match(/\d/g).join('');
     this.inputAlreadySubmited.input = this.cnpjInputId
 
