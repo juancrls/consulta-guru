@@ -647,17 +647,44 @@ footer {
 
   .footer-links ul {
     margin: 0;
-    width: 100%;
+    width: 83%;
+    padding: 0 2rem;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     flex-direction: column;
   }
 
-  .footer-links li {
+  .footer-links ul li {
+    width: 100%;
+    text-align: start;
     margin: 0.4rem;
   }
 
+  .footer-link-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+  }
+
+  
+  .footer-link-title svg {
+    padding: 0.5rem;
+    transition: 0.25s ease-in-out;
+    transform: rotate(45deg);
+    height: 2rem;
+    cursor: pointer;
+  }
+
+  .footer-link-title.closed + .footer-link-container {
+    display: none;
+  }
+
+  .footer-link-title.closed > svg {
+    transform: rotate(0);
+  }
+  
   .footer-link {
     padding-left: 1rem;
   }

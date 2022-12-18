@@ -10,7 +10,7 @@
       ></path>
     </svg>
   </div>
-  <input data-test-text-area {{did-insert (fn this.addSubmitListener)}}
+  <input data-test-text-area {{did-insert this.addSubmitListener}}
     value={{if this.args.value this.args.value ""}}
     oninput={{this.args.onInput}}
     onsubmit={{this.args.onSubmit}}

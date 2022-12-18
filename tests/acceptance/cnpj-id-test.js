@@ -21,7 +21,7 @@ module('Acceptance | cnpj id', function (hooks) {
 
   test('should show loading div and data when accessed via URL', async function (assert) {
     visit('/consultar-cnpj-gratis/00000000000191');
-    
+
     await waitUntil(() => find('[data-test-content-loading]'));
     assert.ok(find('[data-test-content-loading]'), 'loader should be present');
 
@@ -126,13 +126,21 @@ module('Acceptance | cnpj id', function (hooks) {
   });
 
   test('should display an "no data found" error message if user search for an invalid url using input', async function (assert) {
-    setupBrowserNavigationButtons()
+    setupBrowserNavigationButtons();
     await visit('/consultar-cnpj-gratis/');
 
     await addInputAndSubmit('83184591000121');
     await waitUntil(() => find('[data-test-error-message]'));
-    assert.dom('[data-test-error-message]').hasText("Não há dados para este CNPJ!", "CNPJ without data message should be displayed")
-    assert.notOk(find('[data-test-text-area]').classList.contains('error'), 'Text Area should NOT have an error class');
+    assert
+      .dom('[data-test-error-message]')
+      .hasText(
+        'Não há dados para este CNPJ!',
+        'CNPJ without data message should be displayed'
+      );
+    assert.notOk(
+      find('[data-test-text-area]').classList.contains('error'),
+      'Text Area should NOT have an error class'
+    );
   });
 
   test('should show the correct data when user search for an valid CNPJ after searching for a invalid', async function (assert) {
@@ -208,7 +216,11 @@ module('Acceptance | cnpj id', function (hooks) {
 
     // AFTER URL CHANGED
     await visit('/consultar-cnpj-gratis/18792479000101');
-    assert.strictEqual(currentURL(), '/consultar-cnpj-gratis/18792479000101', 'URL should have the correct CNPJ number after change');
+    assert.strictEqual(
+      currentURL(),
+      '/consultar-cnpj-gratis/18792479000101',
+      'URL should have the correct CNPJ number after change'
+    );
 
     await waitUntil(() => find('[data-test-content-item]'));
     assert
@@ -240,11 +252,19 @@ module('Acceptance | cnpj id', function (hooks) {
 
     await visit('/consultar-cnpj-gratis/123');
     await visit('/consultar-cnpj-gratis/00000000000191');
-    assert.strictEqual(currentURL(), '/consultar-cnpj-gratis/00000000000191', 'URL should have the correct CNPJ number before page back button is clicked');
+    assert.strictEqual(
+      currentURL(),
+      '/consultar-cnpj-gratis/00000000000191',
+      'URL should have the correct CNPJ number before page back button is clicked'
+    );
 
     await backButton();
 
-    assert.strictEqual(currentURL(), '/consultar-cnpj-gratis', 'URL shouldbe in the index after page back button is clicked');
+    assert.strictEqual(
+      currentURL(),
+      '/consultar-cnpj-gratis',
+      'URL shouldbe in the index after page back button is clicked'
+    );
 
     assert.notOk(
       find('[data-test-text-area]').classList.contains('error'),
@@ -253,10 +273,6 @@ module('Acceptance | cnpj id', function (hooks) {
 
     assert
       .dom('[data-test-text-area]')
-      .hasText(
-        '',
-        'CNPJ data field should NOT contain text'
-      );
-
+      .hasText('', 'CNPJ data field should NOT contain text');
   });
 });
