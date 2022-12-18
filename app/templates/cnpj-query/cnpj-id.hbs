@@ -15,7 +15,7 @@
         </svg>
       </div>
     {{else if data}}
-      <section data-test-content-container class='content-container'>
+      <section data-test-content-item class='content-item'>
         {{#if data.name}}
           <h2 class="data-name">{{data.name}}</h2>
           <div class='content-list-container'>
@@ -129,7 +129,7 @@
         <section class='content-item'>
           <h2>Atividades Econômicas</h2>
           <div class='content-list-container content-list-container--column'>
-            <ul>
+            <ul style="gap: 0.5rem">
               <li>
                 <div>
                   <h3>Atividade Econômica Primária</h3>
@@ -170,21 +170,21 @@
       {{#if data.shareCapital}}
         <section class='content-item'>
           <h2>Capital Social</h2>
-          <p>R$ {{data.shareCapital}}</p>
+          <p style="font-weight: 400; opacity: 1.0;">R$ {{data.shareCapital}}</p>
         </section>
       {{/if}}
       <section class='content-item'>
         {{#if data.partners}}
-          <div class='content-list-container'>
+          <div class='content-list-container content-list-container--column'>
             <ul>
               <li>
                 <div>
                   <h2>Sócios ou Administradores</h2>
                   {{#each data.partners as |partner|}}
                     <div class='partners-container'>
-                      <h3>Nome <p>{{partner.name}}</p></h3>
-                      <h3>Qualificação
-                        <p>{{partner.qualification.description}}</p></h3>
+                      <h3>Nome: </h3>
+                      <p style="opacity: 1.0;">{{partner.name}}</p>
+                      <h3> - {{partner.qualification.description}}</h3>
                     </div>
                   {{/each}}
 

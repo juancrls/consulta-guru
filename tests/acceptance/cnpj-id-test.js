@@ -25,9 +25,9 @@ module('Acceptance | cnpj id', function (hooks) {
     await waitUntil(() => find('[data-test-content-loading]'));
     assert.ok(find('[data-test-content-loading]'), 'loader should be present');
 
-    await waitUntil(() => find('[data-test-content-container]'));
+    await waitUntil(() => find('[data-test-content-item]'));
     assert.ok(
-      find('[data-test-content-container]'),
+      find('[data-test-content-item]'),
       'content item should be present'
     );
     assert
@@ -198,7 +198,7 @@ module('Acceptance | cnpj id', function (hooks) {
       'URL should have the correct CNPJ number before change'
     );
 
-    await waitUntil(() => find('[data-test-content-container]'));
+    await waitUntil(() => find('[data-test-content-item]'));
     assert
       .dom('[data-test-item-federal-tax-number]')
       .hasText(
@@ -210,7 +210,7 @@ module('Acceptance | cnpj id', function (hooks) {
     await visit('/consultar-cnpj-gratis/18792479000101');
     assert.strictEqual(currentURL(), '/consultar-cnpj-gratis/18792479000101', 'URL should have the correct CNPJ number after change');
 
-    await waitUntil(() => find('[data-test-content-container]'));
+    await waitUntil(() => find('[data-test-content-item]'));
     assert
       .dom('[data-test-item-federal-tax-number]')
       .hasText(
@@ -226,7 +226,7 @@ module('Acceptance | cnpj id', function (hooks) {
       'URL should have the correct CNPJ number after page back button is clicked'
     );
 
-    await waitUntil(() => find('[data-test-content-container]'));
+    await waitUntil(() => find('[data-test-content-item]'));
     assert
       .dom('[data-test-item-federal-tax-number]')
       .hasText(
