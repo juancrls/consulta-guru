@@ -10,15 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Build
-          uses: actions/checkout@v2
-          uses: docker://docker:20.10.17
-          with:
-            args: build . --tag consulta-guru
-      - name: Test
-          uses: docker://docker:20.10.17
-          with:
-            args: run --rm danlynn/ember-cli:4.4.0-node_16.15
+      - uses: actions/checkout@v2
+      - uses: docker://docker:20.10.17
+        with:
+          args: build .
+      - uses: docker://docker:20.10.17
+        with:
+          args: run --rm consulta-guru
       - name: Deploy to Firebase
         run: firebase deploy --only hosting --token $FIREBASE_TOKEN
         env:
