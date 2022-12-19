@@ -29,6 +29,8 @@ jobs:
           login: true
           registry: docker.io
           command: build .
+      - name: Build ember project
+        run: ember build --prod
       - name: Deploy to Firebase
         run: firebase deploy --only hosting --token $FIREBASE_TOKEN
         env:
