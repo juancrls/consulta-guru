@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run Ember tests
-        run: ember test
+        run: ember test --server --module="Acceptance | cnpj id"
       - name: Build Docker image
         uses: docker://docker:20.10.17
         with:
