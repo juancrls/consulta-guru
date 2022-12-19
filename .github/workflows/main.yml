@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 16.17.0
       - name: Install Ember-CLI
-        run: npm -g ember-cli
+        run: npm install -g ember-cli
       - name: Install dependencies
         run: npm install
       - name: Run Ember tests
