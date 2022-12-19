@@ -11,12 +11,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: docker://docker:19.03.13
+      - name: Build
+      - uses: docker://docker:20.10.17
         with:
-          args: build .
-      - uses: docker://docker:19.03.13
+          args: build . --tag consulta-guru
+      - name: Test
+      - uses: docker://docker:20.10.17
         with:
-          args: run --rm ember
+          args: run --rm danlynn/ember-cli:4.4.0-node_16.15
       - name: Deploy to Firebase
         run: firebase deploy --only hosting --token $FIREBASE_TOKEN
         env:
