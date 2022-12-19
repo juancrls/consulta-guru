@@ -10,14 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: docker://docker:20.10.17
-        with:
-          args: build .
-      - uses: docker://docker:20.10.17
-        with:
-          args: run --rm ember
-        - name: Deploy to Firebase
-          run: firebase deploy --only hosting --token $FIREBASE_TOKEN
-          env:
-            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - uses: actions/checkout@v2
+      - uses: docker://docker:19.03.13
+        args: build .
+      - uses: docker://docker:19.03.13
+        args: run --rm ember
+      - name: Deploy to Firebase
+        run: firebase deploy --only hosting --token $FIREBASE_TOKEN
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
