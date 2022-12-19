@@ -12,9 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: docker://docker:19.03.13
-        args: build .
+        with:
+          args: build .
       - uses: docker://docker:19.03.13
-        args: run --rm ember
+        with:
+          args: run --rm ember
       - name: Deploy to Firebase
         run: firebase deploy --only hosting --token $FIREBASE_TOKEN
         env:
