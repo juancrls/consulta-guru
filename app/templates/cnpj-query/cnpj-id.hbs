@@ -4,16 +4,88 @@
   @cnpjId={{@model}}
   as |data cnpjId error isRunning|
 >
+
   <div
     class='data-container'
     {{did-update (fn this.updateUrl cnpjId data error) cnpjId}}
   >
     {{#if isRunning}}
-      <div data-test-content-loading class="loader-svg-container">
+      <section data-test-content-loading class="content-item fake-data-container">
+        
+        <div class="fake-list-item--title">
+          <div class="fake-list-placeholder" style="width: 70%;"></div>
+        </div>
+
+        <div class='content-list-container'>
+          <ul>
+            <li class="fake-list-item">
+              <div class="fake-list-placeholder"></div>
+            </li>
+            <li class="fake-list-item">
+              <div class="fake-list-placeholder"></div>
+            </li>
+            <li class="fake-list-item">
+              <div class="fake-list-placeholder"></div>
+            </li>
+            <li class="fake-list-item">
+              <div class="fake-list-placeholder"></div>
+            </li>
+            <li class="fake-list-item">
+              <div class="fake-list-placeholder"></div>
+            </li>
+              <li class="fake-list-item">
+              <div class="fake-list-placeholder"></div>
+            </li>
+            <li class="fake-list-item">
+              <div class="fake-list-placeholder"></div>
+            </li>
+            <li class="fake-list-item">
+              <div class="fake-list-placeholder"></div>
+            </li>
+          </ul>
+        </div>
+      </section>
+       <section class='content-item'>
+          <div class="fake-list-item--title">
+            <div class="fake-list-placeholder"></div>
+          </div>
+
+          <div class='fake-list-item--container-address'>
+            <div>
+              <div class="fake-list-item">
+                <div class="fake-list-placeholder"></div>
+              </div>
+
+              <div class="fake-list-item">
+                <div class="fake-list-placeholder"></div>
+              </div>
+
+              <div class="fake-list-item">
+                <div class="fake-list-placeholder"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class='content-item'>
+          <div class="fake-list-item--title">
+            <div class="fake-list-placeholder" style="width: 30%;"></div>
+          </div>
+
+          <div class='fake-list-item--container-contact'>
+            <div class="fake-list-item">
+              <div class="fake-list-placeholder"></div>
+            </div>
+
+            <div class="fake-list-item">
+              <div class="fake-list-placeholder"></div>
+            </div>
+          </div>
+        </section>
+      {{!-- <div data-test-content-loading class="loader-svg-container">
         <svg class="loader" viewBox="0 0 24 24">
           <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"></path>
         </svg>
-      </div>
+      </div> --}}
     {{else if data}}
       <section data-test-content-item class='content-item'>
         {{#if data.name}}
@@ -76,6 +148,11 @@
                   </div>
                 </li>
               {{/if}}
+                <li>
+                  <div class="fake-list-item">
+                    <div class="fade"></div>
+                  </div>
+                </li>
             </ul>
           </div>
         {{/if}}

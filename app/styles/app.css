@@ -29,7 +29,7 @@
 
 .fixed > .header-content > .header-links {
   position: relative;
-  top: -22px;
+  top: -14px;
   width: 22rem;
   font-size: 0.85em;
 }
@@ -582,16 +582,20 @@ footer {
     width: 93.3%;
   }
 
-  /* .page-content {
-    max-width: 100%;
-    width: 93.5%;
-    padding-left: 0;
-  } */
+  .data-error-message-container {
+    display: flex;
+    justify-content: center;
+  
+    min-height: 12rem;
+    background-color: white;
+    box-shadow: 0 0.5em 2em rgb(0 150 136 / 20%);
+    border: 1px solid rgba(0, 150, 136, 0.2);
+    padding: 3.5rem 2rem 3rem 2rem;
+  }
 
   .data-container {
     width: 93.3%;
     box-shadow: 0 0em 0.5em rgb(0 150 136 / 20%);
-    margin-top: 9.2rem;
     margin-bottom: 3rem;
 
     background: none;
@@ -748,4 +752,65 @@ footer {
 
   font-weight: 700;
   font-size: 1rem;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+.fake-list-item {
+  height: 30px;
+}
+
+.fake-list-item--title {
+  height: 50px;
+  margin-bottom: 1.5rem;
+}
+
+.fake-list-item--container-address {
+  width: 85%;
+}
+
+.fake-list-item--container-address .fake-list-item{
+  margin-bottom: 0.8rem;
+}
+
+.fake-list-item--container-contact {
+  display: flex;
+}
+
+.fake-list-item--container-contact .fake-list-item{
+  width: 50%;
+}
+
+.fake-list-placeholder {
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  width: 60%;
+  height: 60%;
+
+  background-color: rgb(213, 217, 219);
+  background-image: linear-gradient(
+    90deg,
+    rgb(213, 217, 219) 0,
+    rgb(223, 227, 229) 50%,
+    rgb(213, 217, 219) 100%
+  );
+
+  background-size: 70%;
+  background-position: 500% 0;
+  background-repeat: no-repeat;
+  animation: loader-placeholder 1s linear infinite;
+}
+
+@keyframes loader-placeholder {
+  to {
+    background-position: -350% 0;
+  }
 }
