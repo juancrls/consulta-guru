@@ -20,7 +20,6 @@ jobs:
       - name: Run Ember tests
         run: ember test
       - name: Build Docker image
-        uses: actions/checkout@v2
         uses: docker://docker:20.10.17
         with:
           login: true
