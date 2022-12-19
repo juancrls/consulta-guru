@@ -11,12 +11,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: docker://docker:20.10.17
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          args: build .
-      - uses: docker://docker:20.10.17
+          node-version: 16.17.0
+      - name: Install dependencies
+        run: npm install
+      - name: Run Ember tests
+        run: ember test
+      - name: Build Docker image
+        uses: actions/docker/cli@v1
         with:
-          args: run --rm consulta-guru
+          login: true
+          registry: docker.io
+          command: build .
       - name: Deploy to Firebase
         run: firebase deploy --only hosting --token $FIREBASE_TOKEN
         env:

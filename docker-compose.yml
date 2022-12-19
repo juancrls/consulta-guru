@@ -1,12 +1,12 @@
 version: '2'
 
 services:
-  ember:
+  app:
     image: danlynn/ember-cli:4.4.0-node_16.15
-    build: -
-    command: ember test
     volumes:
-      - .:/app
+      - .:/myapp
+      - .bash_history:/root/.bash_history
+      - node_modules:/myapp/node_modules
     tmpfs:
       - /myapp/tmp
     ports:

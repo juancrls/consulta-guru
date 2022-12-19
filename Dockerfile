@@ -1,7 +1,5 @@
 FROM danlynn/ember-cli:4.4.0-node_16.15
 
-RUN npm install -g ember-cli
-
 WORKDIR /app
 
 COPY package*.json ./
@@ -9,5 +7,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+
+EXPOSE 4200
 
 CMD ["ember", "test"]

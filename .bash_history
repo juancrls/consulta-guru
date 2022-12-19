@@ -7,3 +7,4 @@ exit
 npm install
 ./serve
 exit
+npm install firebase
