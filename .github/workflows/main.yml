@@ -1,23 +1,23 @@
-name: Build and Deploy with Docker
+name: Build, Test and Deploy with Docker
 
 on:
   push:
     branches: [ main ]
     
-  # Run workflow manually
-  workflow_dispatch:
-  
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Build docker image
-        run: docker build . --file Dockerfile --tag consulta-guru
       - uses: actions/checkout@v3
-      - name: Run docker image
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: docker run -e FIREBASE_TOKEN=$FIREBASE_TOKEN consulta-guru
+      - uses: docker://docker:20.10.17
+        with:
+          args: build .
+      - uses: docker://docker:20.10.17
+        with:
+          args: run --rm ember
+        - name: Deploy to Firebase
+          run: firebase deploy --only hosting --token $FIREBASE_TOKEN
+          env:
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

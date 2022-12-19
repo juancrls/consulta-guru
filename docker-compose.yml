@@ -3,17 +3,13 @@ version: '2'
 services:
   ember:
     image: danlynn/ember-cli:4.4.0-node_16.15
-    command: ember serve --watcher polling
+    build: -
+    command: ember test
     volumes:
-      - .:/myapp
-      - .bash_history:/root/.bash_history
-      - node_modules:/myapp/node_modules
+      - .:/app
     tmpfs:
       - /myapp/tmp
     ports:
       - "4200:4200"
       - "7020:7020"
       - "7357:7357"
-
-volumes:
-  node_modules:
