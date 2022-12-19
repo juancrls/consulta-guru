@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 16.17.0
       - name: Install firebase
-        run: npm install -g firebase
+        run: npm install -g firebase-tools && npm cache clean --force 
       - name: Install Ember-CLI
         run: npm install -g ember-cli
       - name: Install dependencies
