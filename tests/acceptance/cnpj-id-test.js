@@ -92,22 +92,6 @@ module('Acceptance | cnpj id', function (hooks) {
       );
   });
 
-  test('should redirect to index and show error on input if user forces the URL to an invalid CNPJ', async function (assert) {
-    setupBrowserNavigationButtons();
-    await visit('/consultar-cnpj-gratis/123');
-
-    assert.strictEqual(
-      currentURL(),
-      '/consultar-cnpj-gratis',
-      'URL should have the correct CNPJ number after search'
-    );
-
-    assert.ok(
-      find('[data-test-text-area]').classList.contains('error'),
-      'Text Area should have an error class'
-    );
-  });
-
   test('should display an "no data found" error message if user search an CNPJ without data via the URL', async function (assert) {
     setupBrowserNavigationButtons();
     await visit('/consultar-cnpj-gratis/83184591000121');
@@ -116,12 +100,12 @@ module('Acceptance | cnpj id', function (hooks) {
     assert
       .dom('[data-test-error-message]')
       .hasText(
-        'Não há dados para este CNPJ!',
+        'Não há dados para o CNPJ inserido!',
         'CNPJ without data message should be displayed'
       );
-    assert.notOk(
+    assert.ok(
       find('[data-test-text-area]').classList.contains('error'),
-      'Text Area should NOT have an error class'
+      'Text Area should have an error class'
     );
   });
 
@@ -134,12 +118,12 @@ module('Acceptance | cnpj id', function (hooks) {
     assert
       .dom('[data-test-error-message]')
       .hasText(
-        'Não há dados para este CNPJ!',
+        'Não há dados para o CNPJ inserido!',
         'CNPJ without data message should be displayed'
       );
-    assert.notOk(
+    assert.ok(
       find('[data-test-text-area]').classList.contains('error'),
-      'Text Area should NOT have an error class'
+      'Text Area should have an error class'
     );
   });
 
@@ -262,11 +246,11 @@ module('Acceptance | cnpj id', function (hooks) {
 
     assert.strictEqual(
       currentURL(),
-      '/consultar-cnpj-gratis',
-      'URL shouldbe in the index after page back button is clicked'
+      '/consultar-cnpj-gratis/123',
+      'URL should have the same CNPJ number as the input'
     );
 
-    assert.notOk(
+    assert.ok(
       find('[data-test-text-area]').classList.contains('error'),
       'Text Area should NOT have an error class'
     );

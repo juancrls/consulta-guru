@@ -7,38 +7,25 @@ import { A } from '@ember/array';
 
 export default class LoaderLoaderComponent extends Component {
   @service store;
-
+  @service inputErrorState;
   @tracked queryResult;
-  @tracked dataType = 'mock'; // api - mock
 
   @task
   *getCnpjData(cnpj) {
     this.queryResult = '';
 
     if (!cnpj || this.args.error) return;
-    yield timeout(800);
+    yield timeout(300);
 
-    if (this.dataType == 'api') {
+    try {
       this.queryResult = yield this.store.findRecord('cnpjQuery', cnpj);
-    } else if (this.dataType == 'mock') {
-      let response = yield fetch('/api/data.json');
-      let { data } = yield response.json();
-
-      let hasData = false;
-      data.map((obj, i) => {
-        if (hasData) return;
-
-        if (obj.legalEntity.federalTaxNumber.match(/\d/g).join('') == cnpj) {
-          this.queryResult = obj.legalEntity;
-          hasData = true;
-          return;
-        }
-
-        if (data.length - 1 == i && !hasData) {
-          this.queryResult = null;
-          return;
-        }
-      });
+    } catch (error) {
+      // console.log("error", error) // checar se o tratamento para 404 deve ser feito da mesma forma
+      if(error.errors && error.errors[0].status == "429") {
+        this.inputErrorState.error = 'Limite de consultas excedido!';
+        this.inputErrorState.invalidCnpj = this.args.cnpjId;        
+      }
     }
+    console.log('query result - loader', this.queryResult);
   }
 }

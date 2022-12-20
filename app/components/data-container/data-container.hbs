@@ -4,10 +4,11 @@
   @error={{this.inputErrorState.error}}
   as |isRunning data|
 >
+{{log "data on hbs" data}}
 
   <div
     class='form-container'
-    {{did-update (fn this.dataParser data) data}}
+    {{!-- {{did-update (fn this.dataParser data) data}} --}}
     {{did-update (fn this.addCnpjInput null this.args.cnpjId) this.onSubmit this.args.cnpjId}}
     {{did-update this.onSubmit this.args.cnpjId}}
   >
@@ -21,7 +22,7 @@
       <div class='cnpj-input-container'>
         <h1 class='cnpj-input-title'>Consultar dados de CNPJ grátis online</h1>
         <TextArea::TextArea
-          @value={{if this.inputErrorState.invalidCnpj this.inputErrorState.invalidCnpj this.cnpjInput}}
+          @value={{this.cnpjInput}}
           @onInput={{this.addCnpjInput}}
           @onSubmit={{this.onSubmit}}
           @error={{this.inputErrorState.error}}
@@ -33,5 +34,5 @@
       </div>
     </Form::Form>
   </div>
-  {{yield this.formattedData this.cnpjInputId this.inputErrorState.error isRunning}}
+  {{yield data this.cnpjInputId this.inputErrorState.error isRunning}}
 </Loader::Loader>
