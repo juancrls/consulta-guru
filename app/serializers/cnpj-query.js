@@ -80,7 +80,6 @@ export default class CnpjQuerySerializer extends RESTSerializer {
       // if true, data is from mock json (public/api/data.json)
       let data = payload.data;
       let hasData = false;
-      console.log('payload.data  ', data);
 
       data.map((obj, i) => {
         if (hasData) return;

@@ -26,6 +26,7 @@ export default class DataContainerDataContainerComponent extends Component {
       this.inputErrorState.error = null;
       this.inputErrorState.invalidCnpj = null;
     }
+
   }
 
   // User input
@@ -50,6 +51,10 @@ export default class DataContainerDataContainerComponent extends Component {
       (num[3] ? `.${num[3]}` : ``) +
       (num[4] ? `/${num[4]}` : ``) +
       (num[5] ? `-${num[5]}` : ``);
+
+      if(this.cnpjInput.length == 18) { // will submit if user enter all CNPJ digits
+        this.onSubmit();
+      }
   }
 
   @action onSubmit() {
@@ -59,14 +64,17 @@ export default class DataContainerDataContainerComponent extends Component {
 
     if (!this.validateCnpj.validateCnpj(formattedCnpj)) {
       this.inputErrorState.error = 'CNPJ inválido inserido';
-      return;
+      // return;
     } else {
       this.inputErrorState.error = null;
     }
 
+    console.log("1", this.inputAlreadySubmited.input)
+    console.log("2", formattedCnpj)
     if (this.inputAlreadySubmited.input == formattedCnpj) return; // will avoid multiple consecutive requests for the same cnpj
 
     if (this.cnpjInput) {
+      console.log('alterou e chamou load')
       this.cnpjInputId = formattedCnpj; // will activate did-update and run the fetch function
     }
   }

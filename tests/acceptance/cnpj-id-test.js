@@ -78,18 +78,6 @@ module('Acceptance | cnpj id', function (hooks) {
       find('[data-test-text-area]').classList.contains('error'),
       'Text Area should have an error class'
     );
-
-    assert.strictEqual(
-      currentURL(),
-      '/consultar-cnpj-gratis/00000000000191',
-      'URL should still be the same'
-    );
-    assert
-      .dom('[data-test-item-federal-tax-number]')
-      .hasText(
-        '00.000.000/0001-91',
-        'CNPJ data field should still have the data for the URL CNPJ'
-      );
   });
 
   test('should display an "no data found" error message if user search an CNPJ without data via the URL', async function (assert) {
@@ -134,7 +122,7 @@ module('Acceptance | cnpj id', function (hooks) {
     await addInputAndSubmit('123');
     assert.strictEqual(
       currentURL(),
-      '/consultar-cnpj-gratis/',
+      '/consultar-cnpj-gratis/123',
       'URL should have the correct CNPJ number after search'
     );
     assert.notOk(

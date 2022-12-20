@@ -1,17 +1,15 @@
 <Loader::Loader
   @cnpjInputId={{this.cnpjInputId}}
-  @cnpjId={{this.args.cnpjId}}
+  @cnpjId={{@cnpjId}}
   @error={{this.inputErrorState.error}}
   as |isRunning data|
 >
-{{log "data on hbs" data}}
-
   <div
     class='form-container'
-    {{!-- {{did-update (fn this.dataParser data) data}} --}}
-    {{did-update (fn this.addCnpjInput null this.args.cnpjId) this.onSubmit this.args.cnpjId}}
-    {{did-update this.onSubmit this.args.cnpjId}}
+    {{did-update (fn this.addCnpjInput null @cnpjId) this.onSubmit @cnpjId}}
+    {{did-update this.onSubmit @cnpjId}}
   >
+  {{log "error on HBS" this.inputErrorState.error}}
     {{! for when the request is made with the input}}
     <Form::Form
       @noValidate={{null}}
@@ -21,7 +19,8 @@
     >
       <div class='cnpj-input-container'>
         <h1 class='cnpj-input-title'>Consultar dados de CNPJ grátis online</h1>
-        <TextArea::TextArea
+        <TextArea::TextArea 
+          @focusOutInput={{this.onSubmit}}
           @value={{this.cnpjInput}}
           @onInput={{this.addCnpjInput}}
           @onSubmit={{this.onSubmit}}

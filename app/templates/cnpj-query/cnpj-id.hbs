@@ -5,94 +5,108 @@
 <DataContainer::DataContainer
   @updateUrl={{this.updateUrl}}
   @cnpjId={{@model}}
-  as |data cnpjId error isRunning|
+  as |data cnpjInputId error isRunning|
 >
 
   <div
     class='data-container'
-    {{did-update (fn this.updateUrl cnpjId data error) cnpjId}}
+    {{did-update (fn this.updateUrl cnpjInputId data error) cnpjInputId}}
   >
     {{#if isRunning}}
-      <section data-test-content-loading class="content-item fake-data-container">
-        
-        <div class="fake-list-item--title">
-          <div class="fake-list-placeholder" style="width: 70%;"></div>
+      <section
+        data-test-content-loading
+        class='content-item fake-data-container'
+      >
+
+        <div class='fake-list-item--title'>
+          <div class='fake-list-placeholder' style='width: 70%;'></div>
         </div>
 
         <div class='content-list-container'>
           <ul>
-            <li class="fake-list-item">
-              <div class="fake-list-placeholder"></div>
+            <li class='fake-list-item'>
+              <div class='fake-list-placeholder'></div>
             </li>
-            <li class="fake-list-item">
-              <div class="fake-list-placeholder"></div>
+            <li class='fake-list-item'>
+              <div class='fake-list-placeholder'></div>
             </li>
-            <li class="fake-list-item">
-              <div class="fake-list-placeholder"></div>
+            <li class='fake-list-item'>
+              <div class='fake-list-placeholder'></div>
             </li>
-            <li class="fake-list-item">
-              <div class="fake-list-placeholder"></div>
+            <li class='fake-list-item'>
+              <div class='fake-list-placeholder'></div>
             </li>
-            <li class="fake-list-item">
-              <div class="fake-list-placeholder"></div>
+            <li class='fake-list-item'>
+              <div class='fake-list-placeholder'></div>
             </li>
-              <li class="fake-list-item">
-              <div class="fake-list-placeholder"></div>
+            <li class='fake-list-item'>
+              <div class='fake-list-placeholder'></div>
             </li>
-            <li class="fake-list-item">
-              <div class="fake-list-placeholder"></div>
+            <li class='fake-list-item'>
+              <div class='fake-list-placeholder'></div>
             </li>
-            <li class="fake-list-item">
-              <div class="fake-list-placeholder"></div>
+            <li class='fake-list-item'>
+              <div class='fake-list-placeholder'></div>
             </li>
           </ul>
         </div>
       </section>
-       <section class='content-item'>
-          <div class="fake-list-item--title">
-            <div class="fake-list-placeholder"></div>
-          </div>
+      <section class='content-item'>
+        <div class='fake-list-item--title'>
+          <div class='fake-list-placeholder'></div>
+        </div>
 
-          <div class='fake-list-item--container-address'>
-            <div>
-              <div class="fake-list-item">
-                <div class="fake-list-placeholder"></div>
-              </div>
-
-              <div class="fake-list-item">
-                <div class="fake-list-placeholder"></div>
-              </div>
-
-              <div class="fake-list-item">
-                <div class="fake-list-placeholder"></div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section class='content-item'>
-          <div class="fake-list-item--title">
-            <div class="fake-list-placeholder" style="width: 30%;"></div>
-          </div>
-
-          <div class='fake-list-item--container-contact'>
-            <div class="fake-list-item">
-              <div class="fake-list-placeholder"></div>
+        <div class='fake-list-item--container-address'>
+          <div>
+            <div class='fake-list-item'>
+              <div class='fake-list-placeholder'></div>
             </div>
 
-            <div class="fake-list-item">
-              <div class="fake-list-placeholder"></div>
+            <div class='fake-list-item'>
+              <div class='fake-list-placeholder'></div>
+            </div>
+
+            <div class='fake-list-item'>
+              <div class='fake-list-placeholder'></div>
             </div>
           </div>
-        </section>
-      {{!-- <div data-test-content-loading class="loader-svg-container">
+        </div>
+      </section>
+      <section class='content-item'>
+        <div class='fake-list-item--title'>
+          <div class='fake-list-placeholder' style='width: 30%;'></div>
+        </div>
+
+        <div class='fake-list-item--container-contact'>
+          <div class='fake-list-item'>
+            <div class='fake-list-placeholder'></div>
+          </div>
+
+          <div class='fake-list-item'>
+            <div class='fake-list-placeholder'></div>
+          </div>
+        </div>
+      </section>
+      {{! <div data-test-content-loading class="loader-svg-container">
         <svg class="loader" viewBox="0 0 24 24">
           <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"></path>
         </svg>
-      </div> --}}
-    {{else if data}}
+      </div> }}
+    {{else if error}}
+
+      <div class='data-error-message-container'>
+        <h1 data-test-error-message>
+          {{#if error}}
+            {{error}}
+          {{else}}
+            Erro desconhecido
+          {{/if}}
+        </h1>
+      </div>
+    {{else}}
       <section data-test-content-item class='content-item'>
         {{#if data.name}}
-          <h2 class="data-name">{{data.name}}</h2>
+          <h2 class='data-name'>{{data.name}}</h2>
           <div class='content-list-container'>
             <ul>
               {{#if data.tradeName}}
@@ -115,7 +129,9 @@
                 <li>
                   <div>
                     <h3>Número de Inscrição</h3>
-                    <p data-test-item-federal-tax-number>{{data.federalTaxNumber}}</p>
+                    <p
+                      data-test-item-federal-tax-number
+                    >{{data.federalTaxNumber}}</p>
                   </div>
                 </li>
               {{/if}}
@@ -151,11 +167,11 @@
                   </div>
                 </li>
               {{/if}}
-                <li>
-                  <div class="fake-list-item">
-                    <div class="fade"></div>
-                  </div>
-                </li>
+              <li>
+                <div class='fake-list-item'>
+                  <div class='fade'></div>
+                </div>
+              </li>
             </ul>
           </div>
         {{/if}}
@@ -209,7 +225,7 @@
         <section class='content-item'>
           <h2>Atividades Econômicas</h2>
           <div class='content-list-container content-list-container--column'>
-            <ul style="gap: 0.5rem">
+            <ul style='gap: 0.5rem'>
               <li>
                 <div>
                   <h3>Atividade Econômica Primária</h3>
@@ -250,7 +266,8 @@
       {{#if data.shareCapital}}
         <section class='content-item'>
           <h2>Capital Social</h2>
-          <p style="font-weight: 400; opacity: 1.0;">R$ {{data.shareCapital}}</p>
+          <p style='font-weight: 400; opacity: 1.0;'>R$
+            {{data.shareCapital}}</p>
         </section>
       {{/if}}
       <section class='content-item'>
@@ -263,7 +280,7 @@
                   {{#each data.partners as |partner|}}
                     <div class='partners-container'>
                       <h3>Nome: </h3>
-                      <p style="opacity: 1.0;">{{partner.name}}</p>
+                      <p style='opacity: 1.0;'>{{partner.name}}</p>
                       <h3> - {{partner.qualification.description}}</h3>
                     </div>
                   {{/each}}
@@ -274,16 +291,6 @@
           </div>
         {{/if}}
       </section>
-    {{else}}
-      <div class="data-error-message-container">
-        <h1 data-test-error-message>
-          {{#if error}}
-            {{error}}
-          {{else}}
-            Não há dados para este CNPJ!
-          {{/if}}
-        </h1>
-      </div>
     {{/if}}
 
   </div>
