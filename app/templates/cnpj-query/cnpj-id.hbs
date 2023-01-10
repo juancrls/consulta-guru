@@ -93,16 +93,16 @@
         </svg>
       </div> }}
     {{else if error}}
-
       <div class='data-error-message-container'>
         <h1 data-test-error-message>
           {{#if error}}
             {{error}}
           {{else}}
-            Erro desconhecido
+            Não há dados para este CNPJ!
           {{/if}}
         </h1>
       </div>
+
     {{else}}
       <section data-test-content-item class='content-item'>
         {{#if data.name}}

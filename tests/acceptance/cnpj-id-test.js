@@ -8,6 +8,7 @@ import {
   waitUntil,
   settled,
   waitFor,
+  pauseTest,
 } from '@ember/test-helpers';
 import {
   setupBrowserNavigationButtons,

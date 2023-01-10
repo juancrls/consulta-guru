@@ -12,15 +12,18 @@
   </div>
   <input data-test-text-area {{did-insert this.addSubmitListener}}
     value={{if @value @value ""}}
+
     onblur={{@focusOutInput}}
-    oninput={{@onInput}}
+    oninput={{this.args.onInput}}
     onsubmit={{@onSubmit}}
+
     class={{if @error "error" null}}
-    placeholder={{@placeholder}}
-    name={{@name}}
-    id={{@id}}
-    {{!-- required={{@required}} --}}
-    {{!-- disabled={{@disabled}} --}}
+
+    placeholder={{this.args.placeholder}}
+    name={{this.args.name}}
+    id={{this.args.id}}
+    {{!-- required={{this.args.required}} --}}
+    {{!-- disabled={{this.args.disabled}} --}}
   />
 
   <div class='input-icon'>
