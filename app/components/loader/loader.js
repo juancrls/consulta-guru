@@ -26,6 +26,5 @@ export default class LoaderLoaderComponent extends Component {
         this.inputErrorState.invalidCnpj = this.args.cnpjId;        
       }
     }
-    console.log('query result - loader', this.queryResult);
   }
 }

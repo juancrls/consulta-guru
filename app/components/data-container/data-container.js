@@ -7,11 +7,9 @@ import { task, timeout } from 'ember-concurrency';
 export default class DataContainerDataContainerComponent extends Component {
   @tracked cnpjInput = ''; // input cnpj
   @tracked cnpjInputId = this.args.cnpjId; // input cnpj for did-update
-  @tracked error;
 
   @service store;
   @service inputErrorState;
-  @service inputAlreadySubmited;
   @service validateCnpj;
 
   constructor(...args) {
@@ -50,23 +48,38 @@ export default class DataContainerDataContainerComponent extends Component {
       (num[3] ? `.${num[3]}` : ``) +
       (num[4] ? `/${num[4]}` : ``) +
       (num[5] ? `-${num[5]}` : ``);
+
+      if(this.cnpjInput.length == 18) { // will submit if user enter all CNPJ digits
+        this.onSubmit();
+      }
   }
+
+  @tracked alreadySubInput;
 
   @action onSubmit() {
     if (!this.cnpjInput) return;
     let formattedCnpj = this.cnpjInput.match(/\d/g).join('');
-    this.inputAlreadySubmited.input = this.cnpjInputId;
-
+    this.alreadySubInput = this.cnpjInputId;
+    
     if (!this.validateCnpj.validateCnpj(formattedCnpj)) {
       this.inputErrorState.error = 'CNPJ inválido inserido';
-      return;
+      // return;
     } else {
-      this.inputErrorState.error = null;
+      if(this.alreadySubInput != formattedCnpj) { // to avoid bugs with valid CNPJ without data
+        this.inputErrorState.validWithoutData = false;
+      }
+
+      if(this.inputErrorState.validWithoutData == true) {
+        return;
+      } else {
+        this.inputErrorState.error = null;
+      }
     }
 
-    if (this.inputAlreadySubmited.input == formattedCnpj) return; // will avoid multiple consecutive requests for the same cnpj
+    if (this.alreadySubInput == formattedCnpj) return; // will avoid multiple consecutive requests for the same cnpj
 
     if (this.cnpjInput) {
+      console.log('alterou e chamou load')
       this.cnpjInputId = formattedCnpj; // will activate did-update and run the fetch function
     }
   }

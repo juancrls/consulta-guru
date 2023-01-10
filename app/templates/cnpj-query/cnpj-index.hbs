@@ -4,9 +4,9 @@
 <DataContainer::DataContainer
   @updateUrl={{this.updateUrl}}
   @cnpjId={{@model}}
-  as |data cnpjId error|
+  as |data cnpjInputId error|
 >
-<div class="page-sections-wrapper" {{did-update (fn this.updateUrl cnpjId data error) cnpjId}}>
+<div class="page-sections-wrapper" {{did-update (fn this.updateUrl cnpjInputId data error) cnpjInputId}}>
 <div class='page-content' id="first-page-content">
     <h2>Como funciona a consulta de CNPJ online?</h2>
     <p>As novas tecnologias só tem ajudado as empresas evoluírem, ainda mais

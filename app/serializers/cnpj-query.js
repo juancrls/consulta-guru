@@ -4,7 +4,6 @@ import { inject as service } from '@ember/service';
 // debugger
 export default class CnpjQuerySerializer extends RESTSerializer {
   @service inputErrorState;
-  @service inputAlreadySubmited;
   @service queryCnpjNumber;
   @service validateCnpj;
   @service router;
@@ -80,7 +79,6 @@ export default class CnpjQuerySerializer extends RESTSerializer {
       // if true, data is from mock json (public/api/data.json)
       let data = payload.data;
       let hasData = false;
-      console.log('payload.data  ', data);
 
       data.map((obj, i) => {
         if (hasData) return;
@@ -97,6 +95,7 @@ export default class CnpjQuerySerializer extends RESTSerializer {
         if (data.length - 1 == i && !hasData) {
           this.inputErrorState.error = 'Não há dados para o CNPJ inserido!';
           this.inputErrorState.invalidCnpj = this.queryCnpjNumber.query;
+          this.inputErrorState.validWithoutData = true;
           payload.legalEntity = null;
           return;
         }
@@ -114,6 +113,7 @@ export default class CnpjQuerySerializer extends RESTSerializer {
       this.formattedData = null;
       this.inputErrorState.error = 'Não há dados para o CNPJ inserido!';
       this.inputErrorState.invalidCnpj = this.queryCnpjNumber.query;
+      this.inputErrorState.validWithoutData = true;
       return;
     }
 

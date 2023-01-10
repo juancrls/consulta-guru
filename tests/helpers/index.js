@@ -45,8 +45,11 @@ async function addInputAndSubmit(input) {
   await click('[data-test-text-area]');
   fillIn('[data-test-text-area]', input);
   await waitUntil(() => find('[data-test-text-area-submit-button]'));
-  await click('[data-test-text-area-submit-button]');
 
+  if(input.length !== 14) { // if the length isn't 14, the input will not make the submit automatically, so the click on submit button is needed
+    await click('[data-test-text-area-submit-button]');
+  }
+  
   await waitUntil(() => find('[data-test-text-area-submit-button]'));
 }
 
