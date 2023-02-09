@@ -78,7 +78,7 @@
 }
 
 .fixed ~ .main-content > .page-content-container > .page-sections-wrapper {
-  padding-top: 17rem;
+  padding-top: 11.5rem;
 }
 
 .fixed ~ .main-content > .page-content-container > .form-container {
@@ -111,7 +111,7 @@
 }
 
 .fixed ~ .main-content > .page-content-container > .data-container {
-  margin-top: 17.5rem;
+  margin-top: 15.5rem;
 }
 
 .fixed ~ .main-content > .page-content-container > #first-page-content {
@@ -156,6 +156,12 @@
   }
 }
 
+@media screen and (max-width: 200px) {
+  .header-logo {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 700px) {
   .header-links a {
     display: none;
@@ -168,10 +174,10 @@
   top: 0;
   padding-top: 71px;
   /* border: 2px solid red; */
-  box-shadow: 0 7px 10px rgb(0 0 0 / 30%);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 30%);
 
   width: 100%;
-  height: 9.5rem;
+  /* height: 9.5rem; */
 
   display: flex;
   align-items: center;
@@ -199,7 +205,8 @@
 
 .input-container {
   background-color: white;
-  width: 604px;
+  width: 350px;
+  min-width: 260px;
   height: 50px;
   display: flex;
   justify-content: space-between;
@@ -220,13 +227,14 @@
 
 @media only screen and (max-width: 768px) {
   .input-container {
-    width: 81%;
+    width: 47%;
   }
 }
 
 @media only screen and (max-width: 600px) {
   .cnpj-input-title {
-    width: 110%;
+    font-size: 1.2rem;
+    width: 90%;
     text-align: center;
   }
 }
@@ -296,7 +304,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  padding-top: 10.2rem;
+  padding-top: 5rem;
   padding-bottom: 5rem;
 }
 
@@ -307,7 +315,7 @@ input::-webkit-inner-spin-button {
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
-  padding: 2.5rem 0 2.5rem 2rem;
+  padding: 2.5rem 0 0 0;
   position: relative;
 }
 
@@ -364,7 +372,7 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   flex-direction: column;
 
-  margin: 10.2rem 0 5rem 0;
+  margin: 9rem 0 5rem 0;
   min-height: 12rem;
   width: 1085px;
   background-color: white;
@@ -382,7 +390,7 @@ li {
 /* Query */
 .content-item h2 {
   font-size: 1.6rem;
-  line-height: 1rem;
+  line-height: 2rem;
   font-weight: 500;
   color: #009688;
   margin-bottom: 2rem;
@@ -579,10 +587,6 @@ footer {
 }
 
 @media only screen and (max-width: 737px) {
-  .input-container {
-    width: 93.3%;
-  }
-
   .data-error-message-container {
     display: flex;
     justify-content: center;

@@ -1,7 +1,3 @@
-{{#if @error}}
-    <p style="position: relative; top: 1rem; font-size: 1.2rem; font-weight: 500; color: red">{{@error}}</p>
-{{/if}}
-
 <div class={{if @error "input-container error" "input-container"}}>
   <div class='input-icon'>
     <svg viewBox='0 0 24 24' class={{if @error "alert-icon-error" "alert-icon"}}>
@@ -49,4 +45,7 @@
       </button>
     {{/if}}
   </div>
+{{#if @error}}
+    <p style="position: absolute; top: 3.2rem; font-size: 1rem; font-weight: 500; color: red">{{@error}}</p>
+{{/if}}
 </div>
