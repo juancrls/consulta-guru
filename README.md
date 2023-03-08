@@ -1,56 +1,31 @@
-# myapp
+# Consulta Guru
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+Consulta Guru is a web application that allows users to query CNPJs (Cadastro Nacional de Pessoas Jurídicas) for free. This project is a refactor of the CNPJ query page of the website consulta.guru.
 
-## Prerequisites
+## URLs
 
-You will need the following things properly installed on your computer.
+- Project Repository: https://github.com/juancrls/consulta-guru
+- Web Application: https://consulta-guru-8fbce.web.app/consultar-cnpj-gratis
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/) (with npm)
-* [Ember CLI](https://cli.emberjs.com/release/)
-* [Google Chrome](https://google.com/chrome/)
+## Technologies Used
 
-## Installation
+- EmberJS
+- Docker
+- CI/CD with Github Actions
+- QUnit for testing
 
-* `git clone <repository-url>` this repository
-* `cd myapp`
-* `npm install`
+## Architecture
 
-## Running / Development
+The project follows the MVC architectural pattern and is a component-based project.
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
+## Features
 
-### Code Generators
+- Input mask and validation
+- Possibility to query using the URL
+- 3 default behaviors for API responses
+- Lazy loading
+- Mobile version
 
-Make use of the many generators for code, try `ember help generate` for more details
+## Styling
 
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Linting
-
-* `npm run lint`
-* `npm run lint:fix`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://cli.emberjs.com/release/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+All styles were copied by eye, based entirely on the official consulta.guru page.
